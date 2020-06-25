@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>iModel</title>
+    </head>
+    <body>
+        <main>
+            <form method="POST">
+                <h3>FIGO Stage</h3>
+                <input type="radio" name="FIGO" value="I" required/>
+                <label for="I">I</label>
+                <input type="radio" name="FIGO" value="II"/>
+                <label for="II">II</label>
+                <input type="radio" name="FIGO" value="III"/>
+                <label for="III">III</label>
+                <input type="radio" name="FIGO" value="IV"/>
+                <label for="IV">IV</label>
+                <h3>Residual Disease After Primary Surgery</h3>
+                <input type="radio" name="RD" value="0" required/>
+                <label for="0">0</label>
+                <input type="radio" name="RD" value=">0" required/>
+                <label for=">0">>0 (greater than zero)</label>
+                <h3>Progression Free Interval</h3>
+                <input type="radio" name="PFI" value="<16" required/>
+                <label for="<16">&lt;16 (less than 16)</label>
+                <input type="radio" name="PFI" value="≥16" required/>
+                <label for="≥16">≥16 (greater than 16)</label>
+                <h3>ECOG Performance Status</h3>
+                <input type="radio" name="ECOG" value="0-1" required/>
+                <label for="0-1">0-1</label>
+                <input type="radio" name="ECOG" value="2-3" required/>
+                <label for="2-3">2-3</label>
+                <h3>CA125 At Recurrence (U/ml)</h3>
+                <input type="radio" name="CA125" value="≤105" required/>
+                <label for="≤105">≤105 (less than 105)</label>
+                <input type="radio" name="CA125" value=">105" required/>
+                <label for=">105">>105 (greater than 105)</label>
+                <h3>Ascites At Recurrence</h3>
+                <input type="radio" name="ASCITES" value="Present" required/>
+                <label for="Present">Present</label>
+                <input type="radio" name="ASCITES" value="Absent"/>
+                <label for="Absent">Absent</label><br>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+    </body>
+</html>
