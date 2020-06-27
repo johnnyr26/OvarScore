@@ -7,8 +7,11 @@
         <main>
             <h1>Welcome to the Ovarian Cancer Scoring Site</h1>
             <h3>Select which scoring method you would like to choose</h3>
-            <a href="/ago">AGO</a>
-            <a href="/imodel">iModel</a>
+            <button onclick="directTo('ago')">AGO</button>
+            <button onclick="directTo('imodel')">iModel</button>
         </main>
+        <script>
+            const directTo = path => location.href = `${path}/${window.location.search}`;
+        </script>
     </body>
 </html>

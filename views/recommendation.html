@@ -6,7 +6,10 @@
     <body>
         <main>
             <h1>Recommendation: {{recommendation}}</h1>
-            <a href="/">Back home</a>
+            <button onclick="directHome()">Back home</button>
         </main>
+        <script>
+            const directHome = () => location.href = `/${window.location.search}`;
+        </script>
     </body>
 </html>
