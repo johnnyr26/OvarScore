@@ -12,7 +12,7 @@ class iModel {
             ECOG: ['0-1', '2-3'],
             CA125: ['>105', '≤105'],
             ASCITES: ['Present', 'Absent']
-        }
+        };
         return Object.values(this.responses).every((response, index) => typeof response === 'string' && Object.values(options)[index].includes(response));;
     }
     calculateCumulativeScore() {

@@ -6,13 +6,13 @@
     <body>
         <form method="POST">
             <strong>Full Name</strong>
-            <input type="text" name="name" placeholder="Full Name" required/>
+            <input type="text" name="name" placeholder="Full Name" value="{name}" required/><br><br>
             <strong>Email</strong>
-            <input type="text" name="email" placeholder="Email" required/>
+            <input type="text" name="email" placeholder="Email" value="{email}" required/><br><br>
             <strong>Password</strong>
-            <input type="password" name="password" placeholder="Password" required/>
+            <input type="password" name="password" placeholder="Password" minlength="8" required/><br><br>
             <strong>Type in your password again</strong>
-            <input type="password" name="rePassword" placeholder="Password" required/>
+            <input type="password" name="rePassword" placeholder="Password" minlength="8" required/><br><br>
             <input type="submit" value="Submit">
         </form>
         <p>{Error Message}</p>
