@@ -2,21 +2,19 @@
   "name": "ovariancancerrecommendation",
   "version": "1.0.0",
   "description": "Uses the iModel and the AGO model to determine whether a particular patient needs surgery based on doctor's input",
-  "main": "lib/app.js",
+  "main": "routes/app.js",
   "engines": {
     "node": "12.x"
   },
   "scripts": {
-    "start": "node lib/app.js",
-    "test": "node lib/app.js"
+    "start": "node routes/app.js",
+    "test": "node routes/app.js"
   },
   "dependencies": {
     "ejs": "^2.5.6",
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "request": "^2.81.0",
     "tape": "^4.7.0"
   },
