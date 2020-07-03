@@ -7,8 +7,8 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "node routes/app.js",
-    "test": "node routes/app.js"
+    "start": "node app.js",
+    "test": "node app.js"
   },
   "dependencies": {
     "ejs": "^2.5.6",
