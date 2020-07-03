@@ -3,9 +3,9 @@ const app = express();
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const fs = require('fs');
-const user = require('./models/user.js');
-const ago = require('./models/ago.js');
-const imodel = require('./models/imodel.js');
+const user = require('../models/user.js');
+const ago = require('../models/ago.js');
+const imodel = require('../models/imodel.js');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(session({
