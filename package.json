@@ -33,9 +33,5 @@
     "session-file-store"
   ],
   "author": "Johnny Ramirez",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/JRProgramming/OvarianCancerRecommendation/issues"
-  },
-  "homepage": "https://github.com/JRProgramming/OvarianCancerRecommendation#readme"
+  "license": "MIT"
 }
