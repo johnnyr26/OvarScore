@@ -2,14 +2,22 @@
 <html>
     <head>
         <title>Home</title>
+        <link href="css/index.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
         <main>
-            <h1>Welcome to the Ovarian Cancer Scoring Site</h1>
-            <h3>Select which scoring method you would like to choose</h3>
-            <a href="/ago">AGO</a>
-            <a href="/imodel">iModel</a>
-            <a href="/logout">Log out</a>
+            <h1 class="headers" id="title-header">
+                Ovarian Cancer Recommendation Site   
+                <span id="logout">
+                    <a id="logout-link" href="/logout">Log out</a>
+                </span>
+            </h1>
+            <hr>
+            <div id="links">
+                <h3 class="headers" id="method-header">Select which scoring method you would like to choose</h3>
+                <a href="/ago" class="method-links">AGO</a>
+                <a href="/imodel" class="method-links">iModel</a>
+            </div>
         </main>
     </body>
 </html>

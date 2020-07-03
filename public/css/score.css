@@ -1,0 +1,86 @@
+body {
+    background-color: whitesmoke;
+    font-family: "Helvetica Neue";
+    font-weight: lighter;
+    text-align: center;
+}
+#main-div {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 95%;
+    width: 50%;
+    border-color: grey;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
+}
+button:hover {
+    text-decoration: underline;
+}
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: lighter;
+    font-size: 3.5vw;
+    margin: 0 2vw;
+}
+h1 {
+    font-family: "Helvetica Neue";
+    font-weight: lighter;
+    font-size: 4vw;
+    margin: 0 0 3vw 0;
+    font-weight: 200;
+}
+a:hover {
+    text-decoration: underline;
+}
+h3 {
+    font-family: "Helvetica Neue";
+    font-weight: 200;
+    font-size: 1.75vw;
+    margin-top: 0;
+}
+hr {
+    width: 80%;
+}
+input[type=radio] {
+    font-size: 2vw;
+    margin: 0 1vw 1vw 1vw;
+}
+label {
+    font-size: 1.35vw; 
+}
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 4vw;
+    margin: 0 1vw;
+    width: 7vw;
+    border-radius: 5px;
+}
+#imodel-submit {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: lighter;
+    font-size: 3vw;
+}
+#content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+}
+#logout-link {
+    position: absolute;
+    top: 1vw;
+    right: 0;
+    font-size: 2vw;
+    width: auto;
+}

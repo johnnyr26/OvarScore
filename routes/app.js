@@ -5,10 +5,11 @@ const FileStore = require('session-file-store')(session);
 const fs = require('fs');
 const user = require('../models/user.js');
 const ago = require('../models/ago.js');
-const imodel = require('../models/iModel.js');
+const imodel = require('../models/imodel.js');
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(session({
-    secret: 'uhh...this is a secret?',
+    secret: '?H$ry`lqXy%yR2folh=6m:+M}to|It',
     store: new FileStore,
     resave: false,
     saveUninitialized: false
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
     fs.readFile('views/index.html', {encoding: 'utf-8'}, (err, body)  => {
         if(err) return res.status(404).send('404');
         if(!req.session.user) return res.redirect('/login');
+        delete req.session.recommendation;
         return res.send(body);
     });
 });
@@ -25,7 +27,7 @@ app.get('/ago', (req, res) => {
         if(err) return res.status(404).send('404');
         //Process and display the next category
         if(!req.session.user) return res.redirect('/login');
-        let nextResponse = ago.processNextResponse(ago.responses);
+        let nextResponse = ago.processNextResponse(req.session.responses);
         return res.send(body.replace(/{{category}}/g, nextResponse));
     });
 });
@@ -40,11 +42,20 @@ app.get('/recommendation', (req, res) => {
         if(err) return res.status(404).send('404');
         //Retrieves reommendation based on the ago model or the imodel
         if(!req.session.user) return res.redirect('/login');
-        const recommendation = ago.recommendation || imodel.calculateCumulativeScore();
-        //Clears the recommendation
+        const recommendation = req.session.recommendation;
+        if(req.session.error || recommendation === imodel.error || !recommendation) {
+            if(!recommendation) {
+                return res.send(body.replace('{{recommendation}}', 'Error: The recommendation got deleted.'));
+            }
+            const error = req.session.error || imodel.error;
+            delete req.session.error;
+            return res.send(body.replace('{{recommendation}}', `Error: ${error}`));
+        } 
+        //Clears the responses
+        delete req.session.responses;
         ago.clearAll();
         imodel.clearAll();
-        return res.send(body.replace('{{recommendation}}', recommendation));
+        return res.send(body.replace('{{recommendation}}', `Recommendation: ${recommendation}`));
     });
 });
 app.get('/login', (req, res) => {
@@ -55,11 +66,13 @@ app.get('/login', (req, res) => {
             delete req.session.error;
             return res.send(body.replace('{Error Message}', error));
         }
+        delete req.session.user;
         return res.send(body.replace('{Error Message}', ''));
     })
 })
 app.get('/logout', (req, res) => {
-    delete req.session.user;
+    const categories = ['name', 'email', 'user', 'recommendation', 'responses', 'error'];
+    categories.forEach(category => delete req.session[category]);
     return res.redirect('/');
 })
 app.get('/signup', (req, res) => {
@@ -84,7 +97,7 @@ app.post('/login', (req,res) => {
         const password = req.body.password;
         try {
             await user.logInUser(email, password);
-            req.session.user = user.email;
+            req.session.user = email;
             res.redirect('/');
         } catch(error) {
             req.session.error = error; 
@@ -111,21 +124,34 @@ app.post('/signup', (req,res) => {
     });
 });
 app.post('/ago', (req, res) => {
-    fs.readFile('views/ago.html', {encoding: 'utf8'}, (error, body) => {
+    fs.readFile('views/ago.html', {encoding: 'utf8'}, async (error, body) => {
         //Retrieves the response to each category
         const category = req.body.category;
         const response = req.body.yes || req.body.no;
         //Logs user response
-        responses = ago.logResponse(category, response, ago.responses);
-        //If a recommendation has been made, redirect to the recommendation page
-        return ago.recommendations.includes(ago.recommendation) ? res.redirect('/recommendation') : res.redirect('/ago');
+        try {
+            if(!req.session.responses) req.session.responses = {};
+            const loggedResponse = await ago.logResponse(category, response, req.session.responses);
+            req.session.responses = loggedResponse;
+            //If a recommendation has been made, redirect to the recommendation page
+            const recommendation = ago.processNextResponse(loggedResponse);
+            if(ago.recommendations.includes(recommendation)) {
+                req.session.recommendation = recommendation;
+                return res.redirect('/recommendation');
+            }
+            return res.redirect('/ago');
+        } catch(error) {
+            console.log(error);
+            res.session.error = error;
+            return res.redirect('/recommendation');
+        }
     });
 });
 app.post('/imodel', (req, res) => {
     fs.readFile('views/imodel.html', {encoding: 'utf-8'}, (err,body) => {
         if(err) return res.status(404).send('404');
         //Saves the user repsonse to an object in the imodel
-        imodel.responses = {
+        req.session.responses = {
             FIGO: req.body.FIGO,
             RD: req.body.RD, 
             PFI: req.body.PFI, 
@@ -133,9 +159,10 @@ app.post('/imodel', (req, res) => {
             CA125: req.body.CA125, 
             ASCITES: req.body.ASCITES
         };
+        req.session.recommendation = imodel.calculateCumulativeScore(req.session.responses || {});
         //if all of the user recommendations were valid
-        return imodel.validateRecommendation() ? res.redirect('/recommendation') : res.redirect('/');
+        return res.redirect('/recommendation');
     });
 });
 const port = process.env.PORT || 8080;
-app.listen(port, console.log('Listening on  8080'));
+app.listen(port, console.log('Listening on 8080'));

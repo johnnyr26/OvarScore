@@ -1,9 +1,10 @@
 class iModel {
     //Creates an object with all of the responses that are about to come
-    constructor(FIGO, RD, PFI, ECOG, CA125, ASCITES) {
-        this.responses = {FIGO: FIGO, RD: RD, PFI: PFI, ECOG: ECOG, CA125: CA125, ASCITES: ASCITES};
+    constructor() {
+        this.responses = {FIGO: null, RD: null, PFI: null, ECOG: null, CA125: null, ASCITES: null};
+        this.error = 'There were either not enough entries to formulate a recommendation or one of the entries was invalid. Please try again.';
     }
-    validateRecommendation() {
+    validateRecommendation(responses) {
         //validates the recommendation by aligning the user's response to the available responses and making sure they are all strings
         const options = {
             FIGO: ['I', 'II', 'III', 'IV'], 
@@ -13,19 +14,15 @@ class iModel {
             CA125: ['>105', '≤105'],
             ASCITES: ['Present', 'Absent']
         };
-        return Object.values(this.responses).every((response, index) => typeof response === 'string' && Object.values(options)[index].includes(response));;
+        const notEmptyEntries = Object.entries(responses).length != 0;
+        const validatedEntries = Object.values(responses).every((response, index) => typeof response === 'string' && Object.values(options)[index].includes(response));
+        return notEmptyEntries && validatedEntries;
     }
-    calculateCumulativeScore() {
-        if(this.validateRecommendation()) {
+    calculateCumulativeScore(responses) {
+        if(this.validateRecommendation(responses)) {
             //Calculates score
             let score = 0;
-            const response = this.responses;
-            /*
-                make options an array 
-                if options isn't an array, when the RD category comes up
-                then the score will always add 1.5 due to the fact that 
-                0 is included in >0
-            */
+            const response = responses;
             const categoryScores = [
                 {response: response['FIGO'], options: ['III','IV'], score: 0.8},
                 {response: response['RD'], options: ['>0'], score: 1.5},
@@ -41,7 +38,7 @@ class iModel {
             return score <= 4.7 ? `Surgery (Score: ${score.toFixed(1)})` : `No surgery (Score: ${score.toFixed(1)})`;
         }
         //if the response doesn't have all of the correctly formated inputs
-        return 'There were either not enough entries to formulate a recommendation or one of the entries was invalid. Please try again.';
+        return this.error;
     }
     clearAll() {
         //clears responses

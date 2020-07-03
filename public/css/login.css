@@ -1,0 +1,90 @@
+body {
+    background-color: whitesmoke;
+    font-family: "Helvetica Neue";
+    font-weight: lighter;
+    text-align: center;
+}
+#heading {
+    font-size: 4.5vw;
+}
+#main-div {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 30vw;
+    width: 30vw;
+    border-color: grey;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
+}
+h1 {
+    font-family: "Helvetica Neue";
+    font-weight: lighter;
+    font-size: 3.5vw;
+}
+a:hover  {
+    text-decoration: underline;
+}
+a {
+    text-decoration: none;
+    color: black;
+    position: absolute;
+    bottom: 0.7vw;
+    right: 0.7vw;
+    font-size: 1.7vw;
+    width: 7vw;
+    border-radius: 5px;
+}
+#text-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin: 1vw 0 0 0;
+    width: 80%;
+}
+input[type=submit] {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    border-radius: 6px;
+    font-family: "Helvetica Neue";
+    font-weight: lighter;
+    font-size: 1.8vw;
+    width: auto;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+input {
+    width: 100%;
+    border: none;
+    outline: 0;
+    box-sizing:border-box;
+    border-bottom: solid black 1px;
+    padding: .35vw;
+    font-family: "Helvetica Neue";
+    font-weight: 200;
+    font-size: 1.5vw;
+    margin: 0 0 1.8vw 0;
+}
+#error-message {
+    color: red;
+    font-size: 1.5vw;
+}
+#sign-up {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+}
+#signature {
+    position: absolute;
+    bottom: .3vw;
+    right: .3vw;
+    font-size: 1.2vw;
+}

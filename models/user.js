@@ -8,6 +8,7 @@ class Users {
             'Not all of the entries were filled out properly. Please fill out all of the entries',
             'Username has already signed up. Please log in.',
             "Passwords don't match. Please make sure that the passwords match",
+            'Incorrect password. Please try again',
             'User not found. Please try again'
         ];
     }
@@ -27,14 +28,18 @@ class Users {
             } 
             else if(!allInputsFilledOut) reject(this.errorMessages[0]);
             else if (duplicateUserName) reject(this.errorMessages[1]);
-            else reject(this.errorMessages[2]);
+            reject(this.errorMessages[2]);
         });
     }
     logInUser(email, password) {
         //Finds the user in the list of arrays
         return new Promise((resolve, reject) => {
             let user = this.users.find(user => user['email'] === email && user['password'] === password);
-            user ? resolve('Successful log in') : reject(this.errorMessages[3]);
+            if(user) resolve();
+            else {
+                if(this.users.find(user => user['email'] === email)) reject(this.errorMessages[3]);
+                else reject(this.errorMessages[4]);
+            }
         });
     }
 }
