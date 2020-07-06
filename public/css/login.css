@@ -34,7 +34,7 @@ a {
     position: absolute;
     bottom: 0.7vw;
     right: 0.7vw;
-    font-size: 1.7vw;
+    font-size: 2vw;
     width: 7vw;
     border-radius: 5px;
 }
@@ -46,6 +46,9 @@ a {
     text-align: center;
     margin: 1vw 0 0 0;
     width: 80%;
+}
+input[type=submit]:hover {
+    text-decoration: underline;
 }
 input[type=submit] {
     position: absolute;
@@ -81,10 +84,4 @@ input {
     bottom: 0;
     right: 0;
     text-align: right;
-}
-#signature {
-    position: absolute;
-    bottom: .3vw;
-    right: .3vw;
-    font-size: 1.2vw;
 }

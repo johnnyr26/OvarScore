@@ -22,9 +22,15 @@ body {
     font-weight: lighter;
     font-size: 3.5vw;
 }
-#method-header {
+#sub-header {
+    font-family: "Helvetica Neue";
+    font-weight: lighter;
+    font-size: 3.5vw;
     font-weight: 300;
-    margin-bottom: 6vw;
+    margin-top: 5vw;
+}
+#method-header {
+    font-weight: 200;
 }
 #title-header {
     font-weight: 200;

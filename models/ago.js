@@ -3,10 +3,16 @@ class AGO {
         //Saved this and the noCategory to a variable so that if I need to change the spelling/wording, I can just go here
         this.categories = [
             'Disease-free interval > 6 months',
-            'Good Performance Status (ECOG = 0)', 
-            'No Residuals After Primary Surgery (If Unknown FIGO stage I/II Initially)',
-            'No Or Small Volume Of Ascities (Estimation: < 500 mL)'
+            'Good Performance Status', 
+            'No Residuals After Primary Surgery',
+            'No Or Small Volume Of Ascities'
         ];
+        this.subCategories = [
+            null,
+            '(ECOG = 0)',
+            '(If Unknown FIGO stage I/II Initially)',
+            '(Estimation < 500 mL)'
+        ]
         this.noCategory = 'Peritoneal Carcinomatosis?';
         this.recommendations = ['Surgery', 'No Surgery'];
     }
@@ -38,16 +44,17 @@ class AGO {
         //Checks to see if the question matches one of valid questions
         return new Promise((resolve, reject) => {
             if(question === this.noCategory || this.categories.includes(question)) {
+                const index = this.categories.findIndex(category => category === question);
+                if(index !== -1)
+                    for(let i = index; i < this.categories.length; i++) {
+                        delete responses[this.categories[i]]
+                    }
+                delete responses['Peritoneal Carcinomatosis?'];
                 responses[question] = response;
                 resolve(responses);
             }
             reject('There was an error with the category');
         });
-    }
-    clearAll() {
-        //clears all responses
-        this.responses = {};
-        this.recommendation = '';
     }
 }
 module.exports = new AGO();
