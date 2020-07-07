@@ -65,10 +65,6 @@
                 xhttp.open('POST', '/imodel', true);
                 xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 var radios = document.getElementsByTagName('input');
-                for(var i=0; i<radios.length; i++) {
-                    radios[i].removeAttribute('checked');
-                }
-                radio.setAttribute('checked', true)
                 var url = '';
                 for(var i=0; i<radios.length; i++) {
                     if(radios[i].checked) url += radios[i].name + '=' + radios[i].value + '&';

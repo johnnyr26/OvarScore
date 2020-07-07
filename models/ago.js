@@ -44,6 +44,7 @@ class AGO {
         //Checks to see if the question matches one of valid questions
         return new Promise((resolve, reject) => {
             if(question === this.noCategory || this.categories.includes(question)) {
+                //This function adjusts the responses so that they are in the proper order needed to determine the score
                 const index = this.categories.findIndex(category => category === question);
                 if(index !== -1)
                     for(let i = index; i < this.categories.length; i++) {
