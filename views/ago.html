@@ -19,9 +19,6 @@
                 </div>
                 <div id="recommendation"></div>
                 <script>
-                    /*
-                    add the ability to change the radio buttons  
-                    */
                     function postData(radio) {
                         var htmlElements = [];
                         var htmlDiv = document.getElementsByTagName('*')[9].childNodes
@@ -53,7 +50,7 @@
                                 } else {
                                     document.getElementById('recommendation').innerHTML = null;
                                 }
-                                const htmlResponse = [
+                                var htmlResponse = [
                                     "<h1>" + response.category + '</h1>',
                                     "<h3>" + response.subCategory + '</h3>',
                                     "<input type='radio' name='" + response.category + "' onclick='postData(this)' value='yes'/>",
