@@ -35,7 +35,7 @@ class Users {
         return new Promise((resolve, reject) => {
             let user = this.users.find(user => user['email'] === email);
             if(user) resolve(user['password']);
-            else reject(this.errorMessages[3]);
+            reject(this.errorMessages[3]);
         });
     }
 }

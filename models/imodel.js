@@ -15,7 +15,7 @@ class iModel {
             CA125: ['>105', '≤105'],
             ASCITES: ['Present', 'Absent']
         };
-        const notEmptyEntries = Object.entries(responses).length != 0;
+        const notEmptyEntries = Object.entries(responses).length !== 0;
         const validatedEntries = Object.values(responses).every((response, index) => typeof response === 'string' && Object.values(options)[index].includes(response));
         return notEmptyEntries && validatedEntries;
     }
