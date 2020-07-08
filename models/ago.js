@@ -11,7 +11,7 @@ class AGO {
             null,
             '(ECOG = 0)',
             '(If Unknown FIGO stage I/II Initially)',
-            '(Estimation < 500 mL)'
+            '(Less than < 500 mL)'
         ]
         this.noCategory = 'Peritoneal Carcinomatosis?';
         this.recommendations = ['Surgery', 'No Surgery'];

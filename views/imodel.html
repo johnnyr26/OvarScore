@@ -24,13 +24,13 @@
                     <input type="radio" name="RD" value="0" onclick="postData(this)" required/>
                     <label for="0">0</label>
                     <input type="radio" name="RD" value=">0" onclick="postData(this)" required/>
-                    <label for=">0">>0 (greater than zero)</label>
+                    <label for=">0">>0</label>
                     <hr>
                     <h1>Progression Free Interval</h1>
                     <input type="radio" name="PFI" value="<16" onclick="postData(this)" required/>
-                    <label for="<16">&lt;16 (less than 16)</label>
+                    <label for="<16">&lt;16</label>
                     <input type="radio" name="PFI" value="≥16" onclick="postData(this)" required/>
-                    <label for="≥16">≥16 (greater than 16)</label>
+                    <label for="≥16">≥16</label>
                     <hr>
                     <h1>ECOG Performance Status</h1>
                     <input type="radio" name="ECOG" value="0-1" onclick="postData(this)" required/>
@@ -40,9 +40,9 @@
                     <hr>
                     <h1>CA125 At Recurrence (U/ml)</h1>
                     <input type="radio" name="CA125" value="≤105" onclick="postData(this)" required/>
-                    <label for="≤105">≤105 (less than 105)</label>
+                    <label for="≤105">≤105</label>
                     <input type="radio" name="CA125" value=">105" onclick="postData(this)" required/>
-                    <label for=">105">>105 (greater than 105)</label>
+                    <label for=">105">>105</label>
                     <hr>
                     <h1>Ascites At Recurrence</h1>
                     <input type="radio" name="ASCITES" value="Present" onclick="postData(this)" required/>
@@ -50,6 +50,7 @@
                     <input type="radio" name="ASCITES" value="Absent" onclick="postData(this)"/>
                     <label for="Absent">Absent</label>
                     <hr>
+                    <p id="risks">Low risk: ≤4.7; High risk: >4.7</p>
                     <h1 id="recommendation">Score: 0.0</h1>
                 </div>
             </div>
