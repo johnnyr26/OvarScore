@@ -14,7 +14,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 35vw;
+    padding: 20px;
+    height: 37.5vw;
     width: 35vw;
     border-color: grey;
     text-align: center;
@@ -36,7 +37,7 @@ a {
     position: absolute;
     bottom: 0.7vw;
     right: 0.7vw;
-    font-size: 1.7vw;
+    font-size: 2vw;
     width: 7vw;
     border-radius: 5px;
 }
@@ -46,7 +47,11 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    margin: 2vw 0 0 0;
     width: 80%;
+}
+input[type=submit]:hover {
+    text-decoration: underline;
 }
 input[type=submit] {
     position: absolute;
@@ -56,8 +61,8 @@ input[type=submit] {
     font-family: "Helvetica Neue";
     font-weight: lighter;
     width: auto;
-    font-size: 1.8vw;
-    margin: 0 0 0 0;
+    font-size: 2.5vw;
+    margin: 0 0 1 0;
     background-color: transparent;
     cursor: pointer;
     border: none;
@@ -84,9 +89,8 @@ input {
     right: 0;
     text-align: right;
 }
-#signature {
-    position: absolute;
-    bottom: .3vw;
-    right: .3vw;
-    font-size: 1.2vw;
+label {
+    color: #000000;
+    font-size: 1.20vw;
+    font-weight: 300;
 }

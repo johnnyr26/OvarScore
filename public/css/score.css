@@ -7,11 +7,11 @@ body {
 #main-div {
     background-color: white;
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    height: 95%;
-    width: 50%;
+    transform: translateX(-50%);
+    width: 43vw;
+    padding: 20px 0;
+    margin: 20px;
     border-color: grey;
     text-align: center;
     border-radius: 10px;
@@ -28,31 +28,33 @@ button {
     font-size: 3.5vw;
     margin: 0 2vw;
 }
-h1 {
-    font-family: "Helvetica Neue";
-    font-weight: lighter;
-    font-size: 4vw;
-    margin: 0 0 3vw 0;
-    font-weight: 200;
-}
 a:hover {
     text-decoration: underline;
+}
+h1 {
+    font-family: "Helvetica Neue";
+    font-weight: 300;
+    font-size: 2vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 h3 {
     font-family: "Helvetica Neue";
     font-weight: 200;
     font-size: 1.75vw;
     margin-top: 0;
+    margin-bottom: 1vw;
 }
 hr {
     width: 80%;
 }
 input[type=radio] {
     font-size: 2vw;
-    margin: 0 1vw 1vw 1vw;
+    margin: 0 0 0 1vw;
 }
 label {
-    font-size: 1.35vw; 
+    font-size: 1.5vw; 
+    font-weight: 200;
 }
 a {
     text-decoration: none;
@@ -69,18 +71,25 @@ a {
     font-weight: lighter;
     font-size: 3vw;
 }
-#content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: auto;
-}
 #logout-link {
     position: absolute;
     top: 1vw;
     right: 0;
-    font-size: 2vw;
+    font-size: 3vw;
     width: auto;
+}
+#back-link {
+    position: absolute;
+    top: 1vw;
+    left: 0;
+    font-size: 3vw;
+    width: auto;
+}
+#recommendation {
+    font-size: 3vw;
+    font-weight: 300;
+}
+#risks {
+    font-size: 1.5vw;
+    font-weight: normal;
 }
