@@ -37,10 +37,13 @@ class iModel {
         score = score.toFixed(1);
         //The score gets calculated based on the responses given
         //If all of the responses are given, then a recommendation will also be given
-        if(Object.entries(responses).length === 6) {
-            return score <= 4.7 ? `Recommendation: Surgery (Score: ${score})` : `Recommendation: No surgery (Score: ${score})`;
+        return score;
+    }
+    formulateRecommendation(score, responsesLength) {
+        if(responsesLength === 6) {
+            return score <= 4.7 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
         }
-        return `Score: ${score}`;
+        return null;
     }
 }
 module.exports = new iModel();

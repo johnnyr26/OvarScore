@@ -8,6 +8,7 @@ const saltRounds = 10;
 const user = require('../models/user.js');
 const ago = require('../models/ago.js');
 const imodel = require('../models/imodel.js');
+const fagotti = require('../models/fagotti.js');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(session({
@@ -46,6 +47,13 @@ app.get('/imodel', (req,res) => {
     fs.readFile('views/imodel.html', {encoding: 'utf-8'}, (err,body) => {
         if(!req.session.user) return res.redirect('/login');
         return err ? res.status(404).send('404') : res.send(body);
+    });
+});
+app.get('/fagotti', (req, res) => {
+    fs.readFile('views/fagotti.html', {encoding: 'utf-8'}, (err, body) => {
+        if(err) return res.status(404).send('404');
+        if(!req.session.user) return res.redirect('/login');
+        return res.send(body);
     });
 });
 app.get('/login', (req, res) => {
@@ -155,9 +163,11 @@ app.post('/ago', async (req, res) => {
         return res.redirect('/');
     }
 });
-app.get('/imodelcalculate', (req, res) => {
+app.post('/fagotti', (req, res) => {
+    const score = fagotti.calculateScore(req.body);
     return res.send({
-        score: imodel.calculateScore(req.session.responses)
+        recommendation: fagotti.formulateRecommendation(score, Object.entries(req.body).length),
+        score: score
     });
 });
 app.post('/imodel', (req, res) => {
@@ -170,7 +180,14 @@ app.post('/imodel', (req, res) => {
         CA125: req.body.CA125, 
         ASCITES: req.body.ASCITES
     };
-    return res.redirect('/imodelcalculate');
+    Object.keys(req.session.responses).forEach(key => {
+        if(!req.session.responses[key]) delete req.session.responses[key];
+    });
+    const score = imodel.calculateScore(req.session.responses);
+    return res.send({
+        recommendation: imodel.formulateRecommendation(score, Object.entries(req.session.responses).length),
+        score: score
+    });
 });
 const port = process.env.PORT || 8080;
 app.listen(port, console.log('Listening on 8080'));

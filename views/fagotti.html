@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fagotti</title>
+        <link href="css/score.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+        <a id="back-link" href="/">Back</a>
+        <a id="logout-link" href="/logout">Log out</a>
+        <main>
+            <div class="main-div" id="fagotti-main-div">
+                <div class="categories">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="top-headers" id="tumour-site">Tumour Site Distribution</th>
+                                <th class="top-headers">Laparoscopic predictive index score = 2</th>
+                                <th class="top-headers">Laparoscopic predictive index score = 0</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <th>Peritoneal Carcinomatosis</th>
+                            <td onclick="processClick(this)" class="row0">Unresectable massive peritoneal involvement plus miliary pattern of distribution</td>
+                            <td onclick="processClick(this)" class="row0">Carcinomatosis involving a limited area surgically removable by peritonectomy</td>
+                        </tr>
+                        <tr>
+                            <th>Diaphragmatic disease</th>
+                            <td onclick="processClick(this)" class="row1">Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface</td>
+                            <td onclick="processClick(this)" class="row1">Isolated diaphragmatic disease</td>
+                        </tr>
+                        <tr>
+                            <th>Mesentric disease</th>
+                            <td onclick="processClick(this)" class="row2">Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments</td>
+                            <td onclick="processClick(this)" class="row2">Small nodules potentially treatable with argon-beam coagulation</td>
+                        </tr>
+                        <tr>
+                            <th>Omental disease</th>
+                            <td onclick="processClick(this)" class="row3">Tumour diffusion up to the large curvature of the stomach</td>
+                            <td onclick="processClick(this)" class="row3">Isolated omental disease</td>
+                        </tr>
+                        <tr>
+                            <th>Bowel infiltration</th>
+                            <td onclick="processClick(this)" class="row4">Bowel resection assumed to be required or military carcinomatosis at the mesentric junction</td>
+                            <td onclick="processClick(this)" class="row4">No bowel restriction required and no military carcinomatosis at the mesenteric junction</td>
+                        </tr>
+                        <tr>
+                            <th>Stomach Infiltration</th>
+                            <td onclick="processClick(this)" class="row5">Obvious neoplasyic involvement of the gastric wall</td>
+                            <td onclick="processClick(this)" class="row5">No obvious neoplastic involvement of the gastric wall</td>
+                        </tr>
+                        <tr>
+                            <th>Liver metastatis</th>
+                            <td onclick="processClick(this)" class="row6">Any surface lesions</td>
+                            <td  onclick="processClick(this)" class="row6">No surface lesions</td>
+                        </tr>
+                    </table>
+                    <h1 id="recommendation"></h1>
+                    <h1 id="score">Score: 0</h1>
+                </div>
+            </div>
+        </main>
+        <script>
+            function processClick(cell) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.open('POST', '/fagotti');
+                xhttp.onreadystatechange = function () {
+                    if(this.readyState === 4 && this.status === 200) {
+                        var response = JSON.parse(this.responseText);
+                        document.getElementById('recommendation').innerHTML = response.recommendation;
+                        document.getElementById('score').innerHTML = 'Score: ' + response.score;
+                    }
+                }
+                xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                var classCells = document.getElementsByClassName(cell.className);
+                for(var i=0; i<classCells.length; i++) {
+                    classCells[i].style.backgroundColor = 'transparent';
+                }
+                const color = 'rgba(0, 128, 128, 0.3)';
+                cell.style.backgroundColor = color;
+                var responses = '';
+                for(var i=0; i<=6; i++) {
+                    var options = document.getElementsByClassName('row' + i);
+                    if(options[0].style.backgroundColor === color) {
+                        responses += 'row' + i + '=' + options[0].innerHTML + '&';
+                    } else if(options[1].style.backgroundColor === color) {
+                        responses += 'row' + i + '=' + options[1].innerHTML + '&';
+                    }
+                }
+                responses = responses.slice(0, -1);
+                xhttp.send(responses);
+            }
+        </script>
+    </body>
+</html>

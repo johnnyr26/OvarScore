@@ -1,21 +1,59 @@
 body {
-    background-color: whitesmoke;
+    background-color: rgba(0, 128, 128, 0.3);
     font-family: "Helvetica Neue";
     font-weight: lighter;
     text-align: center;
 }
-#main-div {
+.main-div {
     background-color: white;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 43vw;
-    padding: 20px 0;
+    padding: 20px;
     margin: 20px;
     border-color: grey;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
+}
+#ago-main-div {
+    width: 43vw;
+}
+#imodel-main-div {
+    width: 40vw;
+}
+#fagotti-main-div {
+    margin-top: 5vw;
+    padding-bottom: 0px;
+    width: 85vw;
+}
+table {
+    border-collapse: collapse;
+    border-bottom: solid black 1px;
+}
+th {
+    border-right: solid black 1px;
+    text-align: center;
+}
+.top-headers {
+    border-right: transparent;
+    border-bottom: solid black 1px;
+}
+#tumour-site {
+    border-right: solid black 1px;;
+    border-bottom: solid black 1px;
+}
+table, td, th {
+    font-size: 1.4vw;
+}
+td:hover {
+    background-color: rgba(0, 128, 128, 0.15);
+    cursor: pointer;
+}
+td {
+    font-size: 1.45vw;
+    font-weight: 200;
+    padding: 1vw;
 }
 button:hover {
     text-decoration: underline;
@@ -85,8 +123,9 @@ a {
     font-size: 3vw;
     width: auto;
 }
-#recommendation {
-    font-size: 3vw;
+#recommendation, #score {
+    font-size: 2.5vw;
+    text-align: center;
     font-weight: 300;
 }
 #risks {

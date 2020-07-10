@@ -8,7 +8,7 @@
         <a id="back-link" href="/">Back</a>
         <a id="logout-link" href="/logout">Log out</a>
         <main>
-            <div id="main-div">
+            <div class="main-div" id="imodel-main-div">
                 <div id="categories">
                     <h1>FIGO Stage</h1>
                     <input type="radio" name="FIGO" value="I" onclick="postData(this)" required/>
@@ -51,7 +51,8 @@
                     <label for="Absent">Absent</label>
                     <hr>
                     <p id="risks">Low risk: ≤4.7; High risk: >4.7</p>
-                    <h1 id="recommendation">Score: 0.0</h1>
+                    <h1 id="recommendation"></h1>
+                    <h1 id="score">Score: 0.0</h1>
                 </div>
             </div>
         </main>
@@ -60,7 +61,9 @@
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if(this.readyState === 4 && this.status === 200) {
-                        document.getElementById("recommendation").innerHTML = JSON.parse(this.responseText).score;
+                        var response = JSON.parse(this.responseText);
+                        document.getElementById('recommendation').innerHTML = response.recommendation;
+                        document.getElementById('score').innerHTML = 'Score: ' + response.score;
                     }
                 }
                 xhttp.open('POST', '/imodel', true);
@@ -70,8 +73,7 @@
                 for(var i=0; i<radios.length; i++) {
                     if(radios[i].checked) url += radios[i].name + '=' + radios[i].value + '&';
                 }
-                url = url.slice(0, -1);
-                xhttp.send(url);
+                xhttp.send(url.slice(0, -1));
             }
         </script>
     </body>
