@@ -10,16 +10,25 @@
         <main>
             <div class="main-div" id="ago-main-div">
                 <div id="categories">
-                    <h1>Disease-free interval > 6 months</h1>
-                    <input type="radio" id="0" onclick="postData(this)" name="Disease-free interval > 6 months" value="yes"/>
-                    <label for="yes">Yes</label>
-                    <input type="radio" id="1" onclick="postData(this)" name="Disease-free interval > 6 months" value="no"/>
-                    <label for="no">No</label>
-                    <hr>
                 </div>
                 <div id="recommendation"></div>
                 <script>
+                    window.onload = postData();
                     function postData(radio) {
+                        if(!radio) {
+                            var htmlResponse = [
+                                    '<h1>Disease-free interval > 6 months</h1>',
+                                    "<input type='radio' id='0' name='Disease-free interval > 6 months' onclick='postData(this)' value='yes'/>",
+                                    "<label for='yes'>Yes</label>",
+                                    "<input type='radio' id='1' name='Disease-free interval > 6 months' onclick='postData(this)' value='no'/>",
+                                    "<label for='no'>No</label>",
+                                    "<hr>"
+                            ];
+                            for(var i=0; i<htmlResponse.length; i++) {
+                                document.getElementById('categories').innerHTML += htmlResponse[i];
+                            }
+                            return;
+                        }
                         var htmlElements = [];
                         var htmlDiv = document.getElementsByTagName('*')[9].childNodes
                         for(var i=0; i<document.getElementsByName(radio.name).length; i++) {
@@ -31,11 +40,16 @@
                                 htmlElements.push(htmlDiv[i]);
                             }
                         }
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.onreadystatechange = function() {
-                            if(this.readyState === 4 && this.status === 200) {
-                                var response = JSON.parse(this.responseText);
-                                for(var i=0; i<htmlDiv.length; i++) {
+                        const body = 'category=' + radio.name + '&value=' + radio.value;
+                        fetch('/ago', {
+                            method: 'post',
+                            headers: {
+                                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                            },
+                            body
+                        }).then(response => response.json())
+                        .then(response => {
+                            for(var i=0; i<htmlDiv.length; i++) {
                                     if(htmlDiv[i] === radio) {
                                         if(radio.value === 'yes') htmlElements = htmlElements.slice(0, i+5);
                                         else htmlElements = htmlElements.slice(0, i+3);
@@ -46,7 +60,7 @@
                                     document.getElementById('categories').appendChild(htmlElements[i]);
                                 }
                                 if(response.recommendation) {
-                                    return document.getElementById('recommendation').innerHTML = 'Recommendation: ' + "<span style='text-decoration: underline;'>" + response.recommendation;
+                                    return document.getElementById('recommendation').innerHTMl = 'Recommendation: ' + "<span style='text-decoration: underline;'>" + response.recommendation;
                                 } else {
                                     document.getElementById('recommendation').innerHTML = null;
                                 }
@@ -62,11 +76,9 @@
                                 for(var i=0; i<htmlResponse.length; i++) {
                                     document.getElementById('categories').innerHTML += htmlResponse[i];
                                 }
-                            }
-                        };
-                        xhttp.open('POST', '/ago', true);
-                        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                        xhttp.send('category=' + radio.name + '&value=' + radio.value);
+                        }).catch(error => {
+                            document.getElementById('recommendation').innerHTML = 'Error: ' + error;
+                        });
                     }
                 </script>
             </div>

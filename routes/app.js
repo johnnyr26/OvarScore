@@ -5,10 +5,10 @@ const FileStore = require('session-file-store')(session);
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const user = require('../models/user.js');
-const ago = require('../models/ago.js');
-const imodel = require('../models/imodel.js');
-const fagotti = require('../models/fagotti.js');
+const user = require('../models/user');
+const ago = require('../models/ago');
+const imodel = require('../models/imodel');
+const fagotti = require('../models/fagotti');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(session({
@@ -19,8 +19,8 @@ app.use(session({
     saveUninitialized: false
 }));
 app.get('/', (req, res) => {
-    fs.readFile('views/index.html', {encoding: 'utf-8'}, (err, body)  => {
-        if(err) return res.status(404).send('404');
+    fs.readFile('views/index.html', {encoding: 'utf-8'}, (error, body)  => {
+        if(error) return res.status(404).send('404');
         if(!req.session.user) return res.redirect('/login');
         delete req.session.recommendation;
         delete req.session.responses;
@@ -39,33 +39,33 @@ app.get('/agonextresponse', (req, res) => {
     return res.send(nextResponse);
 })
 app.get('/ago', (req, res) => {
-    fs.readFile('views/ago.html', {encoding: 'utf-8'}, (err, body)  => {
+    fs.readFile('views/ago.html', {encoding: 'utf-8'}, (error, body)  => {
         return res.send(body);
     });
 });
 app.get('/imodel', (req,res) => {
-    fs.readFile('views/imodel.html', {encoding: 'utf-8'}, (err,body) => {
+    fs.readFile('views/imodel.html', {encoding: 'utf-8'}, (error, body) => {
         if(!req.session.user) return res.redirect('/login');
-        return err ? res.status(404).send('404') : res.send(body);
+        return error ? res.status(404).send('404') : res.send(body);
     });
 });
 app.get('/fagotti', (req, res) => {
-    fs.readFile('views/fagotti.html', {encoding: 'utf-8'}, (err, body) => {
-        if(err) return res.status(404).send('404');
+    fs.readFile('views/fagotti.html', {encoding: 'utf-8'}, (error, body) => {
+        if(error) return res.status(404).send('404');
         if(!req.session.user) return res.redirect('/login');
         return res.send(body);
     });
 });
 app.get('/login', (req, res) => {
-    fs.readFile('views/login.html', {encoding: 'utf-8'}, (err, body) => {
-        if(err) return res.status(404).send('404');
+    fs.readFile('views/login.html', {encoding: 'utf-8'}, (error, body) => {
+        if(error) return res.status(404).send('404');
         if(req.session.error) {
             const error = req.session.error;
             delete req.session.error;
-            return res.send(body.replace('{Error Message}', error));
+            return res.send(body.replace('{{Error Message}}', error));
         }
         delete req.session.user;
-        return res.send(body.replace('{Error Message}', ''));
+        return res.send(body.replace('{{Error Message}}', ''));
     })
 })
 app.get('/logout', (req, res) => {
@@ -74,8 +74,8 @@ app.get('/logout', (req, res) => {
     return res.redirect('/');
 })
 app.get('/signup', (req, res) => {
-    fs.readFile('views/signup.html', {encoding: 'utf-8'}, (err, body) => {
-        if(err) return res.status(404).send('404');
+    fs.readFile('views/signup.html', {encoding: 'utf-8'}, (error, body) => {
+        if(error) return res.status(404).send('404');
         if(req.session.error) {
             const name = req.session.name.trim();
             const email = req.session.email.trim();
@@ -83,14 +83,14 @@ app.get('/signup', (req, res) => {
             delete req.session.name;
             delete req.session.email;
             delete req.session.error;
-            return res.send(body.replace('{Error Message}', error).replace('{name}', name).replace('{email}', email));
+            return res.send(body.replace('{{Error Message}}', error).replace('{name}', name).replace('{email}', email));
         }
-        return res.send(body.replace('{Error Message}', '').replace('{name}', '').replace('{email}', ''));
+        return res.send(body.replace('{{Error Message}}', '').replace('{name}', '').replace('{email}', ''));
     });
 });
 app.post('/login', (req,res) => {
-    fs.readFile('views/login.html', {encoding: 'utf-8'}, async (err, body) => {
-        if(err) {
+    fs.readFile('views/login.html', {encoding: 'utf-8'}, async (error, body) => {
+        if(error) {
             req.session.error = "There was an error authenticating your account. Plese try again";
             return res.redirect('/login');
         };
@@ -98,8 +98,8 @@ app.post('/login', (req,res) => {
         const password = req.body.password;
         try {
             const hashedPassword = await user.findPassword(email);
-            bcrypt.compare(password, hashedPassword, function(err, result) {
-                if(err) {
+            bcrypt.compare(password, hashedPassword, function(error, result) {
+                if(error) {
                     req.session.error = "There was an error authenticating your account. Plese try again";
                     return res.redirect('/login');
                 }
@@ -118,12 +118,12 @@ app.post('/login', (req,res) => {
     });
 });
 app.post('/signup', (req,res) => {
-    fs.readFile('views/signup.html', {encoding: 'utf-8'}, async (err, body) => {
-        if(err) return res.status(404).send('404');
+    fs.readFile('views/signup.html', {encoding: 'utf-8'}, async (error, body) => {
+        if(error) return res.status(404).send('404');
         //If all of the entries were in the correct format and everything is confirmed
         try {
-            await bcrypt.hash(req.body['password'], saltRounds, function(err, hashedPassword) {
-                if(err) {
+            await bcrypt.hash(req.body['password'], saltRounds, function(error, hashedPassword) {
+                if(error) {
                     req.session.name = req.body['name'];
                     req.session.email = req.body['email'];
                     req.session.error = "Error: The sign up credentials couldn't reach the database. Please try again.";
@@ -149,12 +149,11 @@ app.post('/signup', (req,res) => {
 });
 app.post('/ago', async (req, res) => {
     //Retrieves the response to each category
-    const category = req.body.category;
-    const response = req.body.value;
+    const { category, value } = req.body;
     //Logs user response
     try {
         if(!req.session.responses) req.session.responses = {};
-        const loggedResponse = await ago.logResponse(category, response, req.session.responses);
+        const loggedResponse = await ago.logResponse(category, value, req.session.responses);
         req.session.responses = loggedResponse;
         //If a recommendation has been made, redirect to the recommendation page
         return res.redirect('/agonextresponse');
@@ -172,14 +171,8 @@ app.post('/fagotti', (req, res) => {
 });
 app.post('/imodel', (req, res) => {
     if(!req.session.responses) req.session.responses = {};
-    req.session.responses = {
-        FIGO: req.body.FIGO,
-        RD: req.body.RD, 
-        PFI: req.body.PFI, 
-        ECOG: req.body.ECOG, 
-        CA125: req.body.CA125, 
-        ASCITES: req.body.ASCITES
-    };
+    const { FIGO, RD, PFI, ECOG, CA125, ASCITES } = req.body;
+    req.session.responses = { FIGO, RD, PFI, ECOG, CA125, ASCITES };
     Object.keys(req.session.responses).forEach(key => {
         if(!req.session.responses[key]) delete req.session.responses[key];
     });

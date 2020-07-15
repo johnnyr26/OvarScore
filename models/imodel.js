@@ -1,7 +1,7 @@
 class iModel {
     //Creates an object with all of the responses that are about to come
     constructor() {
-        this.responses = {FIGO: null, RD: null, PFI: null, ECOG: null, CA125: null, ASCITES: null};
+        this.responses = {};
         this.a = {};
         this.error = 'There were either not enough entries to formulate a recommendation or one of the entries was invalid. Please try again.';
     }
