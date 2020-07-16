@@ -32,11 +32,13 @@ app.get('/', (req, res) => {
 app.get('/ago', (req, res) => {
     fs.readFile('views/ago.html', {encoding: 'utf-8'}, (error, body)  => {
         if(error) return res.status(404).send('404');
+        if(!req.session.user) return res.redirect('/login');
         return res.send(body);
     });
 });
 app.get('/imodel', (req,res) => {
     fs.readFile('views/imodel.html', {encoding: 'utf-8'}, (error, body) => {
+        if(error) return res.status(404).send('404');
         if(!req.session.user) return res.redirect('/login');
         return error ? res.status(404).send('404') : res.send(body);
     });
