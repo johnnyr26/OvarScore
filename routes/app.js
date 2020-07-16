@@ -6,18 +6,20 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const user = require('../models/user');
+const helmet = require('helmet');
 const ago = require('../models/ago');
 const imodel = require('../models/imodel');
 const fagotti = require('../models/fagotti');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(session({
-    name: 'Session-ID',
+    name: 'sessionID',
     secret: '?H$ry`lqXy%yR2folh=6m:+M}to|It',
     store: new FileStore,
     resave: false,
     saveUninitialized: false
 }));
+app.use(helmet());
 app.get('/', (req, res) => {
     fs.readFile('views/index.html', {encoding: 'utf-8'}, (error, body)  => {
         if(error) return res.status(404).send('404');
