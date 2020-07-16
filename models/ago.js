@@ -40,21 +40,28 @@ class AGO {
         }
         return this.categories[0];
     }
-    logResponse(question, response, responses) {
+    logResponse(category, response, responses) {
         //Checks to see if the question matches one of valid questions
         return new Promise((resolve, reject) => {
-            if(question === this.noCategory || this.categories.includes(question)) {
+            if(category === this.noCategory || this.categories.includes(category) && (response === 'no' || response === 'yes')) {
                 //This function adjusts the responses so that they are in the proper order needed to determine the score
-                const index = this.categories.findIndex(category => category === question);
-                if(index !== -1)
+                const index = this.categories.findIndex(categoryArrayItem => categoryArrayItem === category);
+                //this loop is only meant if the user went back to change an entry
+                //this way the entries are in the correct order if the user goes back
+                if(index !== -1) {
                     for(let i = index; i < this.categories.length; i++) {
                         delete responses[this.categories[i]]
                     }
+                }
+                //the PC category got deleted so that the responses can be in the proper order
+                //if the user clicked a response for PC, then 
                 delete responses['Peritoneal Carcinomatosis?'];
-                responses[question] = response;
+                //adds the response to the category
+                responses[category] = response;
                 resolve(responses);
-            }
-            reject('There was an error with the category');
+            } 
+            //one of the new categories or response is not formatted properly
+            reject('There was an error with processing the response. Please try again.');
         });
     }
 }

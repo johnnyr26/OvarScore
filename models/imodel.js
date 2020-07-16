@@ -5,8 +5,8 @@ class iModel {
         this.a = {};
         this.error = 'There were either not enough entries to formulate a recommendation or one of the entries was invalid. Please try again.';
     }
-    validateRecommendation(responses) {
-        //validates the recommendation by aligning the user's response to the available responses and making sure they are all strings
+    validateResponses(responses) {
+        //validates the responses by aligning the user's response to the available responses and making sure they are all strings
         const options = {
             FIGO: ['I', 'II', 'III', 'IV'], 
             RD: ['0', '>0'],  
@@ -17,6 +17,8 @@ class iModel {
         };
         const notEmptyEntries = Object.entries(responses).length !== 0;
         const validatedEntries = Object.values(responses).every((response, index) => typeof response === 'string' && Object.values(options)[index].includes(response));
+        //makes sure that the entries are in the correct format and the responses are not empty
+        //if the responses are empty, then validatedEntries return true
         return notEmptyEntries && validatedEntries;
     }
     calculateScore(responses) {
@@ -40,6 +42,7 @@ class iModel {
         return score;
     }
     formulateRecommendation(score, responsesLength) {
+        //formulates a recommendation based on inputs
         if(responsesLength === 6) {
             return score <= 4.7 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
         }

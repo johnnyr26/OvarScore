@@ -51,7 +51,7 @@
                         <tr>
                             <th>Liver metastatis</th>
                             <td onclick="processClick(this)" class="row6">Any surface lesions</td>
-                            <td  onclick="processClick(this)" class="row6">No surface lesions</td>
+                            <td onclick="processClick(this)" class="row6">No surface lesions</td>
                         </tr>
                     </table>
                     <h1 id="recommendation"></h1>
@@ -85,10 +85,12 @@
                     body
                 }).then(response => response.json())
                 .then(response => {
+                    if(response.error) throw response.error;
                     document.getElementById('recommendation').textContent = response.recommendation;
                     document.getElementById('score').textContent = 'Score: ' + response.score;
                 }).catch(error => {
                     document.getElementById('recommendation').textContent = 'Error: ' + error;
+                    document.getElementById('score').textContent = '';
                 });
             }
         </script>
