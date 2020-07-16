@@ -82,6 +82,12 @@ app.get('/signup', (req, res) => {
         return res.send(body.replace('{{Error Message}}', '').replace('{name}', '').replace('{email}', ''));
     });
 });
+app.get('/*', (req, res) => {
+    fs.readFile('views/404.html', {encoding: 'utf-8'}, (error, body) => {
+        if(error) return res.status(404).send('404');
+        return res.send(body);
+    })
+})
 app.post('/login', (req,res) => {
     fs.readFile('views/login.html', {encoding: 'utf-8'}, async (error, body) => {
         if(error) {

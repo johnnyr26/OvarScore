@@ -4,7 +4,8 @@
   "description": "Uses the AGO and the iModel scoring system to determine a recommendation for surgery or no surgery",
   "main": "routes/app.js",
   "scripts": {
-    "start": "node routes/app"
+    "start": "node routes/app",
+    "dev": "nodemon routes/app"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
     "helmet": "^3.23.3",
     "session-file-store": "^1.4.0",
     "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
