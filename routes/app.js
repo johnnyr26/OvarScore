@@ -175,10 +175,12 @@ app.post('/imodel', (req, res) => {
     if(!req.session.responses) req.session.responses = {};
     const { FIGO, RD, PFI, ECOG, CA125, ASCITES } = req.body;
     req.session.responses = { FIGO, RD, PFI, ECOG, CA125, ASCITES };
+    //Validate response before deleting the empty responses so that if the user clicks something other than the first,
+    //the program can process the results by the correct  index
+    if(!imodel.validateResponses(req.session.responses)) return res.send({ error: 'There was an error processing the responses' });
     Object.keys(req.session.responses).forEach(key => {
         if(!req.session.responses[key]) delete req.session.responses[key];
     });
-    if(!imodel.validateResponses(req.session.responses)) return res.send({ error: 'There was an error processing the responses' });
     const score = imodel.calculateScore(req.session.responses);
     return res.send({
         recommendation: imodel.formulateRecommendation(score, Object.entries(req.session.responses).length),

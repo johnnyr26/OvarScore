@@ -16,7 +16,7 @@ class iModel {
             ASCITES: ['Present', 'Absent']
         };
         const notEmptyEntries = Object.entries(responses).length !== 0;
-        const validatedEntries = Object.values(responses).every((response, index) => typeof response === 'string' && Object.values(options)[index].includes(response));
+        const validatedEntries = Object.values(responses).every((response, index) => !response || (typeof response === 'string' && Object.values(options)[index].includes(response)));
         //makes sure that the entries are in the correct format and the responses are not empty
         //if the responses are empty, then validatedEntries return true
         return notEmptyEntries && validatedEntries;
