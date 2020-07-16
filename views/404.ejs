@@ -7,20 +7,29 @@
     <body>
         <h1 class="headers" id="title-header">
             Ovarian Cancer Recommendation Site   
-            <span id="logout">
-                <a id="logout-link" href="/logout">Log out</a>
-            </span>
+            <% if(locals.user) { %>
+                <span id="logout">
+                    <a id="logout-link" href="/logout">Log out</a>
+                </span>
+            <% } %>
         </h1>
         <hr>
         <div id="main-div">
                 <h1>404 Error</h1>
                 <h3>We could not find the page that you were looking for.</h3>
                 <h3>Do you meant to click on one of these links?</h3>
-                <div id="links">
-                    <a href="/ago">AGO</a>
-                    <a href="/imodel">iModel</a>
-                    <a href="/fagotti">Fagotti</a>
-                </div>
+                <% if(locals.user) { %>
+                    <div id="links">
+                        <a href="/ago">AGO</a>
+                        <a href="/imodel">iModel</a>
+                        <a href="/fagotti">Fagotti</a>
+                    </div>
+                <% } else { %>
+                    <div id="links">
+                        <a href="/login">Log in</a>
+                        <a href="/signup">Sign up</a>
+                    </div>
+                <% } %>
         </div>
     </body>
 </html>

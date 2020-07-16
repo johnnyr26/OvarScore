@@ -65,18 +65,18 @@ app.get('/signup', (req, res) => {
         delete req.session.name;
         delete req.session.email;
         delete req.session.error;
-        console.log('aslkdjflasdkjf')
         return res.render('signup', {
             error: error,
             name: name,
             email: email
         })
     }
-    console.log('basjdfoajsd')
     return res.render('signup');
 });
 app.get('/*', (req, res) => {
-    return res.render('404');
+    return res.render('404', {
+        user: req.session.user
+    });
 });
 app.post('/login', async (req,res) => {
     const email = req.body.username;
