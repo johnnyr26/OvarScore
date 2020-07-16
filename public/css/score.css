@@ -109,13 +109,6 @@ a {
     font-weight: lighter;
     font-size: 3vw;
 }
-#logout-link {
-    position: absolute;
-    top: 1vw;
-    right: 0;
-    font-size: 3vw;
-    width: auto;
-}
 #back-link {
     position: absolute;
     top: 1vw;
