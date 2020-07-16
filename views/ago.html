@@ -6,7 +6,6 @@
     </head>
     <body>
         <a id="back-link" href="/">Back</a>
-        <a id="logout-link" href="/logout">Log out</a>
         <main>
             <div class="main-div" id="ago-main-div">
                 <div id="categories">
@@ -32,7 +31,7 @@
                     return;
                 }
                 var htmlElements = [];
-                var htmlDiv = document.getElementsByTagName('*')[9].childNodes
+                var htmlDiv = document.getElementsByTagName('*')[8].childNodes
                 for(var i=0; i<document.getElementsByName(radio.name).length; i++) {
                     document.getElementsByName(radio.name)[i].removeAttribute('checked');
                 }
