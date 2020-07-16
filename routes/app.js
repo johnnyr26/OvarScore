@@ -45,6 +45,12 @@ app.get('/fagotti', (req, res) => {
         return res.send(body);
     });
 });
+app.get('/*', (req, res) => {
+    fs.readFile('views/404.html', {encoding: 'utf-8'}, (error, body) => {
+        if(error) return res.status(404).send('404');
+        return res.send(body);
+    })
+});
 app.post('/ago', async (req, res) => {
     //Retrieves the response to each category
     const { category, value } = req.body;
