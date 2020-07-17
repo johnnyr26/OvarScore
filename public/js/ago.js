@@ -20,18 +20,30 @@ function postData(radio) {
         document.getElementsByName(radio.name)[i].removeAttribute('checked');
     }
     radio.setAttribute('checked', true);
+    var checkedElements = [];
+    var lastRadioChecked = false;
     for(var i=0; i<htmlDiv.length; i++) {
         if(htmlDiv[i].nodeName !== '#text') {
             htmlElements.push(htmlDiv[i]);
+            if(htmlDiv[i].tagName === 'INPUT' && htmlDiv[i].checked && !lastRadioChecked) {
+                checkedElements.push({
+                    category: htmlDiv[i].name,
+                    value: htmlDiv[i].value
+                });
+                if(htmlDiv[i] === radio) lastRadioChecked = true;
+            }
         }
     }
-    const body = 'category=' + radio.name + '&value=' + radio.value;
+    var body = '';
+    for(var element of checkedElements) {
+        body += element.category + '=' + element.value + '&';
+    }
     fetch('/ago', {
         method: 'post',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body
+        body: body.slice(0, -1)
     }).then(response => response.json())
     .then(response => {
         if(response.error) throw response.error;

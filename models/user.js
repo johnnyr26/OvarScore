@@ -2,8 +2,6 @@ const validator = require('validator');
 class Users {
     constructor() {
         //Logs all of the variables for the credentials
-        this.signUpCredentials;
-        {this.name, this.email, this.password, this.repassword};
         this.users = [];
         this.errorMessages = [
             'Not all of the entries were filled out properly. Please fill out all of the entries',
@@ -15,21 +13,20 @@ class Users {
             'Unknown error occured. Please try again'
         ];
     }
-    validateSignUpCredentials() {
+    validateSignUpCredentials(credentials) {
         //Validates all of the credentials for the user
-        ({name: this.name, email: this.email, password: this.password, repassword: this.repassword} = this.signUpCredentials);
-        const allInputsFilledOut = Object.values(this.signUpCredentials).every(credential => credential.trim());
-        const passwordsMatch = this.password === this.repassword;
-        const correctEmailFormat = validator.isEmail(this.email);
-        const correctPasswordSetUp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(this.password) && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(this.repassword);
-        const duplicateUserName = this.users.some(user => user.email === this.email);
+        const { name, email, password, repassword } = credentials;
+        const allInputsFilledOut = Object.values(credentials).every(credential => credential.trim());
+        const passwordsMatch = password === repassword;
+        const correctEmailFormat = validator.isEmail(email);
+        const correctPasswordSetUp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password) && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(repassword);
+        const duplicateUserName = this.users.some(user => user.email === email);
         //If all of the credentials were in the correct format, then log that user in. Otherwise inform them the error
         return new Promise((resolve, reject) => {
             if(allInputsFilledOut && passwordsMatch && correctPasswordSetUp && correctEmailFormat && !duplicateUserName) {
-                delete this.signUpCredentials['rePassword'];
-                delete this.repassword;
-                this.users.push(this.signUpCredentials);
-                resolve('Success');
+                delete credentials['rePassword'];
+                this.users.push(credentials);
+                resolve();
             } 
             else if(!allInputsFilledOut) reject(this.errorMessages[0]);
             else if(duplicateUserName) reject(this.errorMessages[1]);
