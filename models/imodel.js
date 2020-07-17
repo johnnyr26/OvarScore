@@ -15,11 +15,10 @@ class iModel {
             CA125: ['>105', '≤105'],
             ASCITES: ['Present', 'Absent']
         };
-        const notEmptyEntries = Object.entries(responses).length !== 0;
-        const validatedEntries = Object.values(responses).every((response, index) => !response || (typeof response === 'string' && Object.values(options)[index].includes(response)));
-        //makes sure that the entries are in the correct format and the responses are not empty
-        //if the responses are empty, then validatedEntries return true
-        return notEmptyEntries && validatedEntries;
+        //Makes sure that the correct keys are aligned with the corrrect value
+        const properKeys = Object.keys(responses).every(key => options[key]);
+        //makes sure that the validated values are aligned with the validated keys
+        return properKeys ? Object.keys(responses).every(key => options[key].includes(responses[key])) : false;
     }
     calculateScore(responses) {
         let score = 0;

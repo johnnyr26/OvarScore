@@ -6,11 +6,8 @@ body {
 }
 .main-div {
     background-color: white;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 20px;
-    margin: 20px;
+    margin: auto;
+    padding: 5px 10px 10px;
     border-color: grey;
     text-align: center;
     border-radius: 10px;
@@ -23,9 +20,8 @@ body {
     width: 40vw;
 }
 #fagotti-main-div {
-    margin-top: 5vw;
-    padding-bottom: 0px;
-    width: 85vw;
+    margin-top: 6vw;
+    padding: 10px;
 }
 table {
     border-collapse: collapse;
@@ -51,6 +47,7 @@ td:hover {
     cursor: pointer;
 }
 td {
+    background-color: transparent;
     font-size: 1.45vw;
     font-weight: 200;
     padding: 1vw;
@@ -73,8 +70,7 @@ h1 {
     font-family: "Helvetica Neue";
     font-weight: 300;
     font-size: 2vw;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
+    margin-top: 1vw auto;
 }
 h3 {
     font-family: "Helvetica Neue";
@@ -117,11 +113,14 @@ a {
     width: auto;
 }
 #recommendation, #score {
-    font-size: 2.5vw;
+    font-size: 2.7vw;
+    margin: 0;
+    padding: 0;
     text-align: center;
     font-weight: 300;
 }
 #risks {
     font-size: 1.5vw;
+    margin: 10px;;
     font-weight: normal;
 }
