@@ -37,16 +37,18 @@ app.post('/ago', (req, res) => {
 });
 app.post('/fagotti', (req, res) => {
     if(!fagotti.validateResponse(req.body)) return res.send({ error: 'There was an error processing the responses' });
+    const score = fagotti.calculateScore(req.body);
     return res.send({
         recommendation: fagotti.formulateRecommendation(score, Object.entries(req.body).length),
-        score: fagotti.calculateScore(req.body)
+        score
     });
 });
 app.post('/imodel', (req, res) => {
     if(!imodel.validateResponses(req.body)) return res.send({ error: 'There was an error processing the responses' });
+    const score = imodel.calculateScore(req.body);
     return res.send({
         recommendation: imodel.formulateRecommendation(score, Object.entries(req.body).length),
-        score: imodel.calculateScore(req.body)
+        score
     });
 });
 const port = process.env.PORT || 8080;
