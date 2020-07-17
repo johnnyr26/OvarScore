@@ -85,7 +85,7 @@ app.post('/login', async (req,res) => {
         const hashedPassword = await user.findPassword(email);
         bcrypt.compare(password, hashedPassword, function(error, result) {
             if(error) {
-                req.session.error = "There was an error authenticating your account. Plese try again";
+                req.session.error = 'There was an error authenticating your account. Plese try again';
                 return res.redirect('/login');
             }
             if(result) {
@@ -125,7 +125,6 @@ app.post('/signup', async (req,res) => {
         req.session.name = user.name;
         req.session.email = user.email;
         req.session.error = error;
-        console.log('error')
         return res.redirect('/signup');
     }
 });
@@ -160,9 +159,7 @@ app.post('/fagotti', (req, res) => {
     });
 });
 app.post('/imodel', (req, res) => {
-    if(!req.session.responses) req.session.responses = {};
-    const { FIGO, RD, PFI, ECOG, CA125, ASCITES } = req.body;
-    req.session.responses = { FIGO, RD, PFI, ECOG, CA125, ASCITES };
+    req.session.responses = req.body;
     //Validate response before deleting the empty responses so that if the user clicks something other than the first,
     //the program can process the results by the correct  index
     if(!imodel.validateResponses(req.session.responses)) return res.send({ error: 'There was an error processing the responses' });

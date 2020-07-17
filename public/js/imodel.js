@@ -12,7 +12,6 @@ function postData(radio) {
         body: url.slice(0, -1)
     }).then(response => response.json())
     .then(response => {
-        console.log(response);
         if(response.error) throw response.error;
         document.getElementById('recommendation').textContent = response.recommendation;
         document.getElementById('score').textContent = 'Score: ' + response.score;
