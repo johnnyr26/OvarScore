@@ -2,35 +2,36 @@ window.onload = postData();
 function postData(radio) {
     if(!radio) {
         var htmlResponse = [
-                '<h1>Disease-free interval > 6 months</h1>',
+                "<h1>Disease-free interval > 6 months</h1>",
                 "<input type='radio' id='0' name='Disease-free interval > 6 months' onclick='postData(this)' value='yes'/>",
                 "<label for='yes'>Yes</label>",
                 "<input type='radio' id='1' name='Disease-free interval > 6 months' onclick='postData(this)' value='no'/>",
                 "<label for='no'>No</label>",
                 "<hr>"
         ];
-        for(var i=0; i<htmlResponse.length; i++) {
-            document.getElementById('categories').innerHTML += htmlResponse[i];
+        for(var element of htmlResponse) {
+            document.getElementById('categories').innerHTML += element;
         }
         return;
     }
     var htmlElements = [];
     var htmlDiv = document.getElementsByTagName('*')[8].childNodes
-    for(var i=0; i<document.getElementsByName(radio.name).length; i++) {
-        document.getElementsByName(radio.name)[i].removeAttribute('checked');
+    //Beause I'm always clearing up and then inserting the elements, I have to set the check attribute
+    for(var element of document.getElementsByName(radio.name)) {
+        element.removeAttribute('checked');
     }
     radio.setAttribute('checked', true);
     var checkedElements = [];
     var lastRadioChecked = false;
-    for(var i=0; i<htmlDiv.length; i++) {
-        if(htmlDiv[i].nodeName !== '#text') {
-            htmlElements.push(htmlDiv[i]);
-            if(htmlDiv[i].tagName === 'INPUT' && htmlDiv[i].checked && !lastRadioChecked) {
+    for(var element of htmlDiv) {
+        if(element.nodeName !== '#text') {
+            htmlElements.push(element);
+            if(element.tagName === 'INPUT' && element.checked && !lastRadioChecked) {
                 checkedElements.push({
-                    category: htmlDiv[i].name,
-                    value: htmlDiv[i].value
+                    category: element.name,
+                    value: element.value
                 });
-                if(htmlDiv[i] === radio) lastRadioChecked = true;
+                if(element === radio) lastRadioChecked = true;
             }
         }
     }
@@ -47,33 +48,33 @@ function postData(radio) {
     }).then(response => response.json())
     .then(response => {
         if(response.error) throw response.error;
-        for(var i=0; i<htmlDiv.length; i++) {
-                if(htmlDiv[i] === radio) {
-                    if(radio.value === 'yes') htmlElements = htmlElements.slice(0, i+5);
-                    else htmlElements = htmlElements.slice(0, i+3);
-                }
+        //Basically this is pretty bad coding but I'm clearing up the page and then inserting the elements back in based on the user's input
+        for(var i=0; i < htmlDiv.length; i ++) {
+            if(htmlDiv[i] === radio) {
+                htmlElements = radio.value === 'yes' ? htmlElements.slice(0, i+5) : htmlElements.slice(0, i+3);
             }
-            document.getElementById('categories').innerHTML = null;
-            for(var i=0; i<htmlElements.length; i++) {
-                document.getElementById('categories').appendChild(htmlElements[i]);
-            }
-            if(response.recommendation) {
-                return document.getElementById('recommendation').innerHTML = 'Recommendation: ' + response.recommendation;
-            } else {
-                document.getElementById('recommendation').innerHTML = null;
-            }
-            var htmlResponse = [
-                "<h1>" + response.category + '</h1>',
-                "<h3>" + response.subCategory + '</h3>',
-                "<input type='radio' name='" + response.category + "' onclick='postData(this)' value='yes'/>",
-                "<label for='yes'>Yes</label>",
-                "<input type='radio' name='" + response.category + "' onclick='postData(this)' value='no'/>",
-                "<label for='no'>No</label>",
-                "<hr>"
-            ];
-            for(var i=0; i<htmlResponse.length; i++) {
-                document.getElementById('categories').innerHTML += htmlResponse[i];
-            }
+        }
+        document.getElementById('categories').innerHTML = null;
+        for(var element of htmlElements) {
+            document.getElementById('categories').appendChild(element);
+        }
+        if(response.recommendation) {
+            return document.getElementById('recommendation').innerHTML = 'Recommendation: ' + response.recommendation;
+        } else {
+            document.getElementById('recommendation').innerHTML = null;
+        }
+        var htmlResponse = [
+            "<h1>" + response.category + '</h1>',
+            "<h3>" + response.subCategory + '</h3>',
+            "<input type='radio' name='" + response.category + "' onclick='postData(this)' value='yes'/>",
+            "<label for='yes'>Yes</label>",
+            "<input type='radio' name='" + response.category + "' onclick='postData(this)' value='no'/>",
+            "<label for='no'>No</label>",
+            "<hr>"
+        ];
+        for(var element of htmlResponse) {
+            document.getElementById('categories').innerHTML += element;
+        }
     }).catch(error => {
         document.getElementById('recommendation').innerHTML = 'Error: ' + error;
     });

@@ -21,11 +21,11 @@ class Fagotti {
         ]
     }
     validateResponse(responses) {
-        //Makes sure that the responses are not altered and  are in the correcto format
+        //Makes sure that the responses are not altered and are in the correcto format
         return Object.values(responses).every(response => typeof response === 'string' && this.twoCategory.includes(response) || this.zeroCategory.includes(response));
     }
     calculateScore(responses) {
-        //calculates the score of teh responses
+        //calculates the score of the responses
         let score = 0;
         Object.values(responses).forEach(response => {
             if(this.twoCategory.includes(response)) score += 2;
@@ -37,7 +37,6 @@ class Fagotti {
         if(responsesLength === 7) {
             return score <= 10 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
         }
-        return null;
     }
 }
 module.exports = new Fagotti();

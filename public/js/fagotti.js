@@ -1,7 +1,7 @@
 function processClick(cell) {
     var classCells = document.getElementsByClassName(cell.className);
-    for(var i=0; i<classCells.length; i++) {
-        classCells[i].removeAttribute('style');
+    for(var classCell of classCells) {
+        classCell.removeAttribute('style');
     }
     const color = 'rgba(0, 128, 128, 0.3)';
     cell.style.backgroundColor = color;

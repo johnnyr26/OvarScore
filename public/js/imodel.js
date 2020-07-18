@@ -1,8 +1,8 @@
 function postData(radio) {
     var radios = document.getElementsByTagName('input');
     var url = '';
-    for(var i=0; i<radios.length; i++) {
-        if(radios[i].checked) url += radios[i].name + '=' + radios[i].value + '&';
+    for(var element of radios) {
+        if(element.checked) url += element.name + '=' + element.value + '&';
     }
     fetch('/imodel', {
         method: 'post',

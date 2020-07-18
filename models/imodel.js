@@ -1,8 +1,6 @@
 class iModel {
     //Creates an object with all of the responses that are about to come
     constructor() {
-        this.responses = {};
-        this.a = {};
         this.error = 'There were either not enough entries to formulate a recommendation or one of the entries was invalid. Please try again.';
     }
     validateResponses(responses) {
@@ -35,10 +33,9 @@ class iModel {
         categoryScores.forEach(category => {
             if(category['options'].includes(category['response'])) score += category['score'];
         });
-        score = score.toFixed(1);
         //The score gets calculated based on the responses given
         //If all of the responses are given, then a recommendation will also be given
-        return score;
+        return score.toFixed(1);
     }
     formulateRecommendation(score, responsesLength) {
         //formulates a recommendation based on inputs
