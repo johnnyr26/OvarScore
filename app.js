@@ -16,7 +16,7 @@ app.use('/', index);
 app.use('/ago', ago);
 app.use('/imodel', imodel);
 app.use('/fagotti', fagotti);
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).render('404');
 })
 

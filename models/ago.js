@@ -1,6 +1,5 @@
 class AGO {
     constructor() {
-        //Saved this and the noCategory to a variable so that if I need to change the spelling/wording, I can just go here
         this.categories = [
             'Disease-free interval > 6 months',
             'Good Performance Status', 
@@ -8,7 +7,7 @@ class AGO {
             'No Or Small Volume Of Ascities'
         ];
         this.subCategories = [
-            null,
+            '',
             '(ECOG = 0)',
             '(If Unknown FIGO stage I/II Initially)',
             '(Less than < 500 mL)'
@@ -16,31 +15,69 @@ class AGO {
         this.noCategory = 'Peritoneal Carcinomatosis?';
         this.recommendations = ['Surgery', 'No Surgery'];
     }
-    processNextResponse(responses) {
-        //if the user has responded, then pull up the next quesiton. otherwise pull up the first category
-        const questions = Object.keys(responses);
-        const lastValue = Object.values(responses).slice(-1)[0];
-        //if the 'peritoneal carcinomatosis' question was asked
-         //if the user response to 'peritoneal carcinomatosis' was no, then recommend surgery, otherwise recommend no surgery
-        if(questions.slice(-1)[0] === this.noCategory) return lastValue === 'no' ? this.recommendations[0] : this.recommendations[1];
-        if(lastValue === 'no')  {
-            //If the user responded no to the first category, then automatically go to no surgery
-            if(questions.slice(-1)[0] === this.categories[0]) return this.recommendations[1];
-            //shoots the 'peritoneal' question to the user
-            return this.noCategory;
+    processNextResponse(category, response) {
+        let nextResponse = '';
+        if(category === this.categories[0] && response === 'no') {
+            nextResponse = this.recommendations[1];
+        } else if(response === 'no') {
+            if(category === this.noCategory) return { response: '', recommendation: `Recommendation: ${this.recommendations[0]}` };
+            else nextResponse = this.noCategory;
+        } else {
+            if(category === this.noCategory) return { response: '', recommendation: `Recommendation: ${this.recommendations[1]}` };
+            else {
+                const indexOfKey = this.categories.indexOf(category);
+                const nextCategory = this.categories[indexOfKey + 1];
+                if(nextCategory) nextResponse = nextCategory;
+                else nextResponse = this.recommendations[0];
+            }
         }
-        //finds the next category that the user hasn't responded to
-        let nextCategory = this.categories.find(category => !questions.includes(category));
-        //if the user hasn't responded to all of the categories, proceed
-        if(nextCategory) return nextCategory;
-        //if the user said yes to all of the categories, then recommend no surgery
-        return this.recommendations[0];
+        const subCategory = this.subCategories[this.categories.findIndex(category => category === nextResponse)];
+        const htmlStructure = [
+            '<h1>{{category}}</h1>',
+            '<h3>{{subCategory}}</h3>',
+            "<input type='radio' name='{{category}}' onclick='postData(this)' value='yes' {{checked}}/>",
+            "<label for='yes'> Yes</label>",
+            "<input type='radio' name='{{category}}' onclick='postData(this)' value='no' {{noCheck}}/>",
+            "<label for='no' > No</label>",
+            "<hr>"
+        ];
+        const categoryIndex = this.categories.indexOf(category);
+        let htmlOutput = '';
+        this.categories.find((categoryInArray, index) => {
+            if (index <= categoryIndex) {
+                htmlStructure.forEach(html => {
+                    html = html.replace('{{category}}', categoryInArray);
+                    html = html.replace('{{subCategory}}', this.subCategories[index]);
+                    if(index !== categoryIndex || response === 'yes') {
+                        html = html.replace('{{checked}}', 'checked');
+                    } else {
+                        html = html.replace('{{noCheck}}', 'checked');
+                    }
+                    htmlOutput += html
+                })
+            }
+            const noCategory = categoryIndex === -1;
+            if ((index === categoryIndex || noCategory) && !this.recommendations.includes(nextResponse)) {
+                htmlStructure.forEach(html => {
+                    html = html.replace('{{category}}', nextResponse);
+                    html = html.replace('{{subCategory}}', subCategory || '');
+                    html = html.replace('{{checked}}', '');
+                    html = html.replace('{{noCheck}}', '');
+                    htmlOutput += html
+                });
+            }
+            return categoryInArray === category;
+        });
+        const output = { response: htmlOutput }
+        if(this.recommendations.includes(nextResponse)) {
+            output.recommendation = 'Recommendation: ' + nextResponse;
+        }
+        return output;
     }
     validateResponse(response) {
-        //Checks to see if the question matches one of valid questions
-        const validCategories = Object.keys(response).every(category => this.categories.includes(category) || category === this.noCategory);
-        const validResponses = Object.values(response).every(res => res === 'yes' || res ===  'no');
-        return validCategories && validResponses;
+        const validCategory = this.categories.some(category => category === response.category || response.category === this.noCategory);
+        const validValue = response.response === 'yes' || response.response === 'no';
+        return validCategory && validValue;
     }
 }
 module.exports = new AGO();
