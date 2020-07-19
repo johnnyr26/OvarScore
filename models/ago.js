@@ -21,9 +21,8 @@ class AGO {
         const questions = Object.keys(responses);
         const lastValue = Object.values(responses).slice(-1)[0];
         //if the 'peritoneal carcinomatosis' question was asked
-        if(questions.slice(-1)[0] === this.noCategory)
-            //if the user response to 'peritoneal carcinomatosis' was no, then recommend surgery, otherwise recommend no surgery 
-            return lastValue === 'no' ? this.recommendations[0] : this.recommendations[1];
+         //if the user response to 'peritoneal carcinomatosis' was no, then recommend surgery, otherwise recommend no surgery
+        if(questions.slice(-1)[0] === this.noCategory) return lastValue === 'no' ? this.recommendations[0] : this.recommendations[1];
         if(lastValue === 'no')  {
             //If the user responded no to the first category, then automatically go to no surgery
             if(questions.slice(-1)[0] === this.categories[0]) return this.recommendations[1];

@@ -1,8 +1,4 @@
 class iModel {
-    //Creates an object with all of the responses that are about to come
-    constructor() {
-        this.error = 'There were either not enough entries to formulate a recommendation or one of the entries was invalid. Please try again.';
-    }
     validateResponses(responses) {
         //validates the responses by aligning the user's response to the available responses and making sure they are all strings
         const options = {
@@ -39,9 +35,7 @@ class iModel {
     }
     formulateRecommendation(score, responsesLength) {
         //formulates a recommendation based on inputs
-        if(responsesLength === 6) {
-            return score <= 4.7 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
-        }
+        if(responsesLength === 6) return score <= 4.7 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
         return null;
     }
 }

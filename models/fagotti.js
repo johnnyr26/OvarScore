@@ -34,9 +34,7 @@ class Fagotti {
     }
     formulateRecommendation(score, responsesLength) {
         //makes a recommendation based on the score
-        if(responsesLength === 7) {
-            return score <= 10 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
-        }
+        if(responsesLength === 7) return score <= 10 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
     }
 }
 module.exports = new Fagotti();
