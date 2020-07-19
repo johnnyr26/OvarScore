@@ -6,7 +6,6 @@ const index = require('./routes/index');
 const ago = require('./routes/ago');
 const imodel = require('./routes/imodel');
 const fagotti = require('./routes/fagotti');
-const errorPage = require('./routes/404');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -17,7 +16,9 @@ app.use('/', index);
 app.use('/ago', ago);
 app.use('/imodel', imodel);
 app.use('/fagotti', fagotti);
-app.use('/*', errorPage);
+app.use((req, res, next) => {
+    res.status(404).render('404');
+})
 
 const port = process.env.PORT || 8080;
 app.listen(port, console.log('Listening on 8080'));
