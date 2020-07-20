@@ -9,9 +9,9 @@ function postData(radio) {
                 "<label for='no'> No</label>",
                 "<hr>"
         ];
-        for(var i=0; i<htmlResponse.length; i++) {
-            document.getElementById('categories').innerHTML += htmlResponse[i];
-        }
+        htmlResponse.forEach(element => {
+            document.getElementById('categories').innerHTML += element;
+        });
         return;
     }
     fetch('/ago', {

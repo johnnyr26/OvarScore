@@ -1,15 +1,15 @@
 function postData(radio) {
     var radios = document.getElementsByTagName('input');
-    var url = '';
+    var body = '';
     for(var element of radios) {
-        if(element.checked) url += element.name + '=' + element.value + '&';
+        if(element.checked) body += element.name + '=' + element.value + '&';
     }
     fetch('/imodel', {
         method: 'post',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: url.slice(0, -1)
+        body
     }).then(function(response) { return response.json() })
     .then(function(response) {
         if(response.error) throw response.error;

@@ -59,11 +59,16 @@ class AGO {
             const noCategory = categoryIndex === -1;
             if ((index === categoryIndex || noCategory) && !this.recommendations.includes(nextResponse)) {
                 htmlStructure.forEach(html => {
-                    html = html.replace('{{category}}', nextResponse);
-                    html = html.replace('{{subCategory}}', subCategory || '');
-                    html = html.replace('{{checked}}', '');
-                    html = html.replace('{{noCheck}}', '');
-                    htmlOutput += html
+                    const replacedText = {
+                        '{{category}}': nextResponse,
+                        '{{subCategory}}': subCategory || '',
+                        '{{checked}}': '',
+                        '{{noCheck}}': ''
+                    };
+                    Object.keys(replacedText).forEach(key => {
+                        html = html.replace(key, replacedText[key]);
+                    });
+                    htmlOutput += html;
                 });
             }
             return categoryInArray === category;

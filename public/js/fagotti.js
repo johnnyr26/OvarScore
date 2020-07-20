@@ -14,13 +14,12 @@ function processClick(cell) {
             body += 'row' + i + '=' + options[1].textContent + '&';
         }
     }
-    body = body.slice(0, -1);
     fetch('/fagotti', {
         method: 'post',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body
+        body: body.slice(0, -1)
     }).then(function(response) { return response.json() })
     .then(function(response) {
         if(response.error) throw response.error;
