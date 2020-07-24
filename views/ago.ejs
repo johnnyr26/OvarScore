@@ -6,13 +6,17 @@
     </head>
     <body>
         <a id="back-link" href="/">Back</a>
-        <main>
-            <div class="main-div" id="ago-main-div">
-                <div id="categories">
-                </div>
-                <div id="recommendation"></div>
+        <div class="main-div" id="ago-main-div">
+            <div id="categories">
+                <h1>Disease-free interval > 6 months</h1>
+                <input type='radio' id='0' name='Disease-free interval > 6 months' onclick='postData(this)' value='yes'/>
+                <label for='yes'> Yes</label>
+                <input type='radio' id='1' name='Disease-free interval > 6 months' onclick='postData(this)' value='no'/>
+                <label for='no'> No</label>
+                <hr>
             </div>
-        </main>
+            <div id="recommendation"></div>
+        </div>
         <script src="/js/ago.js"></script>
     </body>
 </html>

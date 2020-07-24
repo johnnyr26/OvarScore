@@ -20,5 +20,4 @@ app.use((req, res) => {
     res.status(404).render('404');
 })
 
-const port = process.env.PORT || 8080;
-app.listen(port, console.log('Listening on 8080'));
+module.exports = app;

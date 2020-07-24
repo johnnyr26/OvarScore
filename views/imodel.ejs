@@ -7,55 +7,53 @@
     </head>
     <body>
         <a id="back-link" href="/">Back</a>
-        <main>
-            <div class="main-div" id="imodel-main-div">
-                <div id="categories">
-                    <h1>FIGO Stage</h1>
-                    <input type="radio" name="FIGO" value="I" onclick="postData(this)" required/>
-                    <label for="I">I</label>
-                    <input type="radio" name="FIGO" value="II" onclick="postData(this)"/>
-                    <label for="II">II</label>
-                    <input type="radio" name="FIGO" value="III" onclick="postData(this)"/>
-                    <label for="III">III</label>
-                    <input type="radio" name="FIGO" value="IV" onclick="postData(this)"/>
-                    <label for="IV">IV</label>
-                    <hr>
-                    <h1>Residual Disease After Primary Surgery</h1>
-                    <input type="radio" name="RD" value="0" onclick="postData(this)" required/>
-                    <label for="0">0</label>
-                    <input type="radio" name="RD" value=">0" onclick="postData(this)" required/>
-                    <label for=">0">>0</label>
-                    <hr>
-                    <h1>Progression Free Interval</h1>
-                    <input type="radio" name="PFI" value="<16" onclick="postData(this)" required/>
-                    <label for="<16">&lt;16</label>
-                    <input type="radio" name="PFI" value="≥16" onclick="postData(this)" required/>
-                    <label for="≥16">≥16</label>
-                    <hr>
-                    <h1>ECOG Performance Status</h1>
-                    <input type="radio" name="ECOG" value="0-1" onclick="postData(this)" required/>
-                    <label for="0-1">0-1</label>
-                    <input type="radio" name="ECOG" value="2-3" onclick="postData(this)" required/>
-                    <label for="2-3">2-3</label>
-                    <hr>
-                    <h1>CA125 At Recurrence (U/ml)</h1>
-                    <input type="radio" name="CA125" value="≤105" onclick="postData(this)" required/>
-                    <label for="≤105">≤105</label>
-                    <input type="radio" name="CA125" value=">105" onclick="postData(this)" required/>
-                    <label for=">105">>105</label>
-                    <hr>
-                    <h1>Ascites At Recurrence</h1>
-                    <input type="radio" name="ASCITES" value="Present" onclick="postData(this)" required/>
-                    <label for="Present">Present</label>
-                    <input type="radio" name="ASCITES" value="Absent" onclick="postData(this)"/>
-                    <label for="Absent">Absent</label>
-                    <hr>
-                    <p id="risks">Low risk: ≤4.7; High risk: >4.7</p>
-                    <h1 id="recommendation"></h1>
-                    <h1 id="score">Score: 0.0</h1>
-                </div>
+        <div class="main-div" id="imodel-main-div">
+            <div id="categories">
+                <h1>FIGO Stage</h1>
+                <input type="radio" name="FIGO" value="I" required/>
+                <label for="I">I</label>
+                <input type="radio" name="FIGO" value="II"/>
+                <label for="II">II</label>
+                <input type="radio" name="FIGO" value="III"/>
+                <label for="III">III</label>
+                <input type="radio" name="FIGO" value="IV"/>
+                <label for="IV">IV</label>
+                <hr>
+                <h1>Residual Disease After Primary Surgery</h1>
+                <input type="radio" name="RD" value="0" required/>
+                <label for="0">0</label>
+                <input type="radio" name="RD" value=">0" required/>
+                <label for=">0">>0</label>
+                <hr>
+                <h1>Progression Free Interval</h1>
+                <input type="radio" name="PFI" value="<16" required/>
+                <label for="<16">&lt;16</label>
+                <input type="radio" name="PFI" value="≥16" required/>
+                <label for="≥16">≥16</label>
+                <hr>
+                <h1>ECOG Performance Status</h1>
+                <input type="radio" name="ECOG" value="0-1" required/>
+                <label for="0-1">0-1</label>
+                <input type="radio" name="ECOG" value="2-3" required/>
+                <label for="2-3">2-3</label>
+                <hr>
+                <h1>CA125 At Recurrence (U/ml)</h1>
+                <input type="radio" name="CA125" value="≤105" required/>
+                <label for="≤105">≤105</label>
+                <input type="radio" name="CA125" value=">105" required/>
+                <label for=">105">>105</label>
+                <hr>
+                <h1>Ascites At Recurrence</h1>
+                <input type="radio" name="ASCITES" value="Present" required/>
+                <label for="Present">Present</label>
+                <input type="radio" name="ASCITES" value="Absent"/>
+                <label for="Absent">Absent</label>
+                <hr>
+                <p id="risks">Low risk: ≤4.7; High risk: >4.7</p>
+                <h1 id="recommendation"></h1>
+                <h1 id="score">Score: 0.0</h1>
             </div>
-        </main>
+        </div>
         <script src="/js/imodel.js"></script>
     </body>
 </html>
