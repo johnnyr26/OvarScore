@@ -7,7 +7,7 @@ const ago = require('./routes/ago');
 const imodel = require('./routes/imodel');
 const fagotti = require('./routes/fagotti');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static('public'));
 app.use(helmet());
 app.set('view engine', 'ejs');

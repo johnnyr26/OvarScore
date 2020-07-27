@@ -6,18 +6,9 @@ router.route('/')
     .get((req, res) => {
         res.render('fagotti');
     })
-    .post(async (req, res) => {
-        const { row0, row1, row2, row3, row4, row5, row6 } = req.body;
-        const responses = { row0, row1, row2, row3, row4, row5, row6 };
-        try {
-            await validateResponse(responses);
-            const { score, recommendation } = processResponse(responses);
-            return res.send({
-                recommendation,
-                score
-            });
-        } catch(error) {
-            return res.status(400).send({ error });
-        }
+    .post((req, res) => {
+        const responses = req.body;
+        if (!validateResponse(responses)) return res.status(400).send({ error: 'Error: There was an error processing the response.' });
+        return res.send(processResponse(responses));
     });
 module.exports = router;

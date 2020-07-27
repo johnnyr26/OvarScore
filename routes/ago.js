@@ -6,14 +6,9 @@ router.route('/')
     .get((req, res) => {
         res.render('ago');
     })
-    .post(async (req, res) => {
-        const {category, response} = req.body;
-        try {
-            await validateResponse(category, response);
-            const nextResponse = processNextResponse(category, response);
-            return res.send(nextResponse);
-        } catch (error) {
-            return res.status(400).send({ error });
-        }
+    .post((req, res) => {
+        const { category, response } = req.body;
+        if (!validateResponse(category, response)) return res.status(400).send({ error: 'Error: There was an error processing the response.' });
+        return res.send(processNextResponse(category, response));
     });
 module.exports = router;

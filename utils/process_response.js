@@ -30,10 +30,14 @@ const processAgoResponse = (category, response) => {
     const htmlStructure = [
         '<h1>{{category}}</h1>',
         '<h3>{{subCategory}}</h3>',
-        "<input type='radio' name='{{category}}' onclick='postData(this)' value='yes' {{checked}}/>",
-        "<label for='yes'> Yes</label>",
-        "<input type='radio' name='{{category}}' onclick='postData(this)' value='no' {{noCheck}}/>",
-        "<label for='no' > No</label>",
+        "<label>",
+        "<input type='radio' name='{{category}}' value='yes' {{checked}}/>",
+        "Yes",
+        "</label>",
+        "<label>",
+        "<input type='radio' name='{{category}}' value='no' {{noCheck}}/>",
+        "No",
+        "</label>",
         "<hr>"
     ];
     const subCategory = subCategories[categories.indexOf(nextResponse)];
@@ -45,7 +49,9 @@ const processAgoResponse = (category, response) => {
                 html = html.replace('{{subCategory}}', subCategories[index]);
                 if (index !== indexOfCategory || response === 'yes') {
                     html = html.replace('{{checked}}', 'checked');
+                    html = html.replace('{{noCheck}}', '');
                 } else {
+                    html = html.replace('{{checked}}', '');
                     html = html.replace('{{noCheck}}', 'checked');
                 }
                 htmlOutput += html;
@@ -88,7 +94,7 @@ const processIModelResponses = (responses) => {
         if (category['options'].includes(category['response'])) score += category['score'];
     });
     let recommendation = '';
-    const everyCategoryFilled = Object.values(responses).every(response => response);
+    const everyCategoryFilled = Object.values(responses).length === 6;
     if (everyCategoryFilled) recommendation = score <= 4.7 ? `Recommendation: Surgery` : `Recommendation: No surgery`;
     return { score: score.toFixed(1), recommendation };
 }
@@ -107,7 +113,7 @@ const processFagottiResponses = (responses) => {
         if (twoCategory.includes(response)) score += 2;
     });
     let recommendation = '';
-    const everyCategoryFilled = Object.values(responses).every(response => response);
+    const everyCategoryFilled = Object.values(responses).length === 7;
     if (everyCategoryFilled) recommendation = score <= 10 ? 'Recommendation: Surgery' : 'Recommendation: No Surgery';
     return { score, recommendation };
 }

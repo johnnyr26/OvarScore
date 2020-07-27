@@ -1,16 +1,22 @@
-function postData(radio) {
+const postData = radio => {
+    const response = { category: radio.name, response: radio.value };
     fetch('/ago', {
-        method: 'post',
+        method: 'POST',
         headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            'Content-type': 'application/json'
         },
-        body: 'category=' + radio.name + '&response=' + radio.value
-    }).then(function(response) { return response.json() })
-    .then(function(response) {
+        body: JSON.stringify(response)
+    }).then(response => response.json())
+    .then(response => {
         if (response.error) throw response.error;
         if (response.response) document.getElementById('categories').innerHTML = response.response;
         document.getElementById('recommendation').textContent = response.recommendation || '';
-    }).catch(function(error) {
+        addClickListener();
+    }).catch(error => {
         document.getElementById('recommendation').innerHTML = error;
     });
 }
+const addClickListener = () => {
+    Object.values(document.getElementsByTagName('input')).forEach(radio => radio.addEventListener('click', () => postData(radio)));
+}
+addClickListener();
