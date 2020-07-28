@@ -27,54 +27,62 @@ const processAgoResponse = (category, response) => {
             nextResponse = nextCategory ? nextCategory : 'Surgery';
         }
     }
-    const htmlStructure = [
-        '<h1>{{category}}</h1>',
-        '<h3>{{subCategory}}</h3>',
-        "<label>",
-        "<input type='radio' name='{{category}}' value='yes' {{checked}}/>",
-        "Yes",
-        "</label>",
-        "<label>",
-        "<input type='radio' name='{{category}}' value='no' {{noCheck}}/>",
-        "No",
-        "</label>",
-        "<hr>"
-    ];
     const subCategory = subCategories[categories.indexOf(nextResponse)];
-    let htmlOutput = '';
+    let categoryTitle = '';
+    let subCategoryTitle = '';
+    let checked = '';
+    let noCheck = '';
+    let htmlStructure = '';
     categories.find((categoryInArray, index) => {
         if (index <= indexOfCategory) {
-            htmlStructure.forEach(html => {
-                html = html.replace('{{category}}', categoryInArray);
-                html = html.replace('{{subCategory}}', subCategories[index]);
-                if (index !== indexOfCategory || response === 'yes') {
-                    html = html.replace('{{checked}}', 'checked');
-                    html = html.replace('{{noCheck}}', '');
-                } else {
-                    html = html.replace('{{checked}}', '');
-                    html = html.replace('{{noCheck}}', 'checked');
-                }
-                htmlOutput += html;
-            });
+            categoryTitle = categoryInArray;
+            subCategoryTitle  = subCategories[index];
+            checked = '';
+            noCheck = '';
+            if (index !== indexOfCategory || response === 'yes') {
+                checked = 'checked';
+                noCheck = '';
+            } else {
+                checked = '';
+                noCheck = 'checked';
+            }
+            htmlStructure += `
+                <h1>${categoryTitle}</h1>
+                <h3>${subCategoryTitle}</h3>
+                <label>
+                    <input type='radio' name='${categoryTitle}' value='yes' ${checked}/>
+                    Yes
+                </label>
+                <label>
+                    <input type='radio' name='${categoryTitle}' value='no' ${noCheck}/>
+                    No
+                </label>
+                <hr>
+            `;
         }
         const noCategory = indexOfCategory === -1;
         if ((index === indexOfCategory || noCategory) && !recommendations.includes(nextResponse)) {
-            htmlStructure.forEach(html => {
-                const replacedText = {
-                    '{{category}}': nextResponse,
-                    '{{subCategory}}': subCategory || '',
-                    '{{checked}}': '',
-                    '{{noCheck}}': ''
-                };
-                Object.keys(replacedText).forEach(key => {
-                    html = html.replace(key, replacedText[key]);
-                });
-                htmlOutput += html;
-            });
+            categoryTitle = nextResponse;
+            subCategoryTitle = subCategory || '';
+            checked = '';
+            noCheck = '';
+            htmlStructure += `
+                <h1>${categoryTitle}</h1>
+                <h3>${subCategoryTitle}</h3>
+                <label>
+                    <input type='radio' name='${categoryTitle}' value='yes' ${checked}/>
+                    Yes
+                </label>
+                <label>
+                    <input type='radio' name='${categoryTitle}' value='no' ${noCheck}/>
+                    No
+                </label>
+                <hr>
+            `;
         }
         return categoryInArray === category;
     });
-    const output = { response: htmlOutput }
+    const output = { response: htmlStructure }
     if (recommendations.includes(nextResponse)) {
         output.recommendation = 'Recommendation: ' + nextResponse;
     }
