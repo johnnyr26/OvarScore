@@ -2,24 +2,31 @@
 <html>
     <head>
         <title>AGO - OCR</title>
-        <link href="/css/score.css" type="text/css" rel="stylesheet">
+        <link href="/css/header.css" type="text/css" rel="stylesheet">
+        <link href="/css/ago.css" type="text/css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
     </head>
     <body>
         <a id="back-link" href="/">Back</a>
-        <div class="main-div" id="ago-main-div">
-            <div id="categories">
-                <h1>Disease-free interval > 6 months</h1>
-                <label>
-                    <input type='radio' id='0' name='Disease-free interval > 6 months' onclick='postData(this)' value='yes'/>
-                    Yes
-                </label>
-                <label>
-                    <input type='radio' id='1' name='Disease-free interval > 6 months' onclick='postData(this)' value='no'/>
-                    No
-                </label>
-                <hr>
+        <div class="main">
+            <div class="main-div">
+                <div id="categories">
+                    <h1>Disease-free interval > 6 months</h1>
+                    <h3></h3>
+                    <label>
+                        <input type='radio' id='0' name='Disease-free interval > 6 months' onclick='postData(this)' value='yes'/>
+                        Yes
+                    </label>
+                    <label>
+                        <input type='radio' id='1' name='Disease-free interval > 6 months' onclick='postData(this)' value='no'/>
+                        No
+                    </label>
+                    <hr>
+                </div>
+                <div id="recommendation"></div>
             </div>
-            <div id="recommendation"></div>
         </div>
         <script src="/js/ago.js"></script>
     </body>

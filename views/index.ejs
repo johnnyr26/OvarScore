@@ -2,17 +2,33 @@
 <html>
     <head>
         <title>OCR</title>
-        <link href="/css/index.css" type="text/css" rel="stylesheet"/>
+        <link href="/css/index.css" type="text/css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
     </head>
     <body>
-        <h1 class="headers" id="title-header">Ovarian Cancer Recommendation Site </h1>
-        <hr>
-        <h3 id="sub-header">Welcome</h3>
-        <div id="links">
-            <h3 class="headers" id="method-header">Select which scoring method you would like to choose</h3>
-            <a href="/ago" class="method-links">AGO</a>
-            <a href="/imodel" class="method-links">iModel</a>
-            <a href="/fagotti" class="method-links">Fagotti</a>
+        <div class="main">
+            <h1 class="headers" id="title-header">Ovarian Cancer Recommendation Site </h1>
+            <div id="links">
+                <div class="pop">
+                    <h1>AGO</h1>
+                    <a href="/ago" >Click here</a>
+                </div>
+                <div class="pop">
+                    <h1>iModel</h1>
+                    <a href="/imodel">Click here</a>
+                </div>
+                <div class="pop">
+                    <h1 id="fagotti-title">Fagotti Score</h1>
+                    <a id="fagotti-link" href="/fagotti">Click here</a>
+                </div>
+            </div>
+            <!--
+                <div class="pop">
+                    <a href="/tutorial">Tutorial</a>
+                </div>
+            -->
         </div>
     </body>
 </html>

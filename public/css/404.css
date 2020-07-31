@@ -1,41 +1,66 @@
+html, body {
+    font-family: "Helvetica Neue";
+    font-weight: 100;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    min-width: 320px;
+}
 body {
     background-color: rgba(0, 128, 128, 0.3);
-    font-family: "Helvetica Neue";
-    font-weight: lighter;
-    text-align: center;
 }
-#main-div {
+hr {
+    width: 100%;
+}
+.main {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 5px 10px 10px;
     border-color: grey;
     text-align: center;
+    margin-top: 50px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
 }
-.headers {
-    font-family: "Helvetica Neue";
-    font-weight: lighter;
-    font-size: 3.5vw;
-}
 #title-header {
+    font-size: 64px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
     font-weight: 200;
 }
 h1 {
     font-family: "Helvetica Neue";
     font-weight: lighter;
-    font-size: 5vw;
-    margin: 2vw 0;
+    font-size: 72px;
+    margin: 0;
 }
 h3 {
     font-family: "Helvetica Neue";
     font-weight: 200;
-    font-size: 1.5vw;
-    margin-top: 0;
-    margin-bottom: 1vw;
+    font-size: 24px;
+    margin: 12px;
+    margin-bottom: 0;
+}
+#error-title {
+    margin-bottom: 24px;
+}
+#links {
+    margin-top: 48px;
 }
 a:hover {
     text-decoration: underline;
@@ -43,26 +68,27 @@ a:hover {
 a {
     text-decoration: none;
     color: black;
-    font-size: 4vw;
-    margin: 0 1vw;
-    width: 7vw;
+    font-size: 48px;
+    margin: 0 14px;
     border-radius: 5px;
 }
-#links {
-    margin: 5vw 3vw 1vw;
-}
-#content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    margin: 1vw 0 0 0;
-    width: 80%;
-}
-#logout-link {
-    font-size: 3vw;
-    position: absolute;
-    right: 0;
-    width: auto;
+@media screen and (max-width: 750px) {
+    #title-header {
+        font-size: 36px;
+    }
+    .main-div {
+        margin-top: 20px;
+    }
+    #links {
+        margin-top: 24px;
+    }
+    h1 {
+        font-size: 36px;
+    }
+    h3 {
+        font-size: 16px;
+    }
+    a {
+        font-size: 24px;
+    }
 }

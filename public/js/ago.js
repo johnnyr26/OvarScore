@@ -12,6 +12,10 @@ const postData = radio => {
         if (response.response) document.getElementById('categories').innerHTML = response.response;
         document.getElementById('recommendation').textContent = response.recommendation || '';
         addClickListener();
+        window.scroll({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
     }).catch(error => {
         document.getElementById('recommendation').innerHTML = error;
     });

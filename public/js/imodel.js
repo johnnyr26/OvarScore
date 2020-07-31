@@ -16,6 +16,12 @@ Object.values(document.getElementsByTagName('input')).forEach(radio => {
             if (response.error) throw response.error;
             document.getElementById('recommendation').textContent = response.recommendation;
             document.getElementById('score').textContent = 'Score: ' + response.score;
+            if (response.recommendation) {
+                window.scroll({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
         }).catch(error => {
             document.getElementById('recommendation').textContent = error;
             document.getElementById('score').textContent = '';
