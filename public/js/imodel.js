@@ -1,30 +1,33 @@
-Object.values(document.getElementsByTagName('input')).forEach(radio => {
-    radio.addEventListener('click', () => {
-        const radios = document.getElementsByTagName('input');
-        let response = {};
-        Object.values(radios).forEach(element => {
+'use strict';
+
+Object.values(document.getElementsByTagName('input')).forEach(function (radio) {
+    radio.addEventListener('click', function () {
+        var radios = document.getElementsByTagName('input');
+        var response = {};
+        Object.values(radios).forEach(function (element) {
             if (element.checked) response[element.name] = element.value;
         });
-        fetch('/imodel', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(response)
-        }).then(response => response.json())
-        .then(response => {
-            if (response.error) throw response.error;
-            document.getElementById('recommendation').textContent = response.recommendation;
-            document.getElementById('score').textContent = 'Score: ' + response.score;
-            if (response.recommendation) {
-                window.scroll({
-                    top: document.body.scrollHeight,
-                    behavior: 'smooth'
-                });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/imodel', true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                var response = JSON.parse(this.responseText);
+                document.getElementById('recommendation').textContent = response.recommendation;
+                document.getElementById('score').textContent = 'Score: ' + response.score;
+                if (response.recommendation) {
+                    window.scroll({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            } else {
+                var response = JSON.parse(this.responseText);
+                document.getElementById('recommendation').textContent = response.error;
+                return document.getElementById('score').textContent = '';
             }
-        }).catch(error => {
-            document.getElementById('recommendation').textContent = error;
-            document.getElementById('score').textContent = '';
-        });
+        }
+        xhr.send(JSON.stringify(response));
+        
     });
 });

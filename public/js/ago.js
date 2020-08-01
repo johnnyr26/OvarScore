@@ -1,26 +1,32 @@
-const postData = radio => {
-    const response = { category: radio.name, response: radio.value };
-    fetch('/ago', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(response)
-    }).then(response => response.json())
-    .then(response => {
-        if (response.error) throw response.error;
-        if (response.response) document.getElementById('categories').innerHTML = response.response;
-        document.getElementById('recommendation').textContent = response.recommendation || '';
-        addClickListener();
-        window.scroll({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
+'use strict';
+
+var postData = function postData(radio) {
+    var response = { category: radio.name, response: radio.value };
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/ago', true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            var response = JSON.parse(this.responseText);
+            if (response.response) document.getElementById('categories').innerHTML = response.response;
+            document.getElementById('recommendation').textContent = response.recommendation || '';
+            addClickListener();
+            window.scroll({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        } else {
+            var response = JSON.parse(this.responseText);
+            return document.getElementById('recommendation').innerHTML = response.error;
+        }
+    }
+    xhr.send(JSON.stringify(response));
+};
+var addClickListener = function addClickListener() {
+    Object.values(document.getElementsByTagName('input')).forEach(function (radio) {
+        return radio.addEventListener('click', function () {
+            return postData(radio);
         });
-    }).catch(error => {
-        document.getElementById('recommendation').innerHTML = error;
     });
-}
-const addClickListener = () => {
-    Object.values(document.getElementsByTagName('input')).forEach(radio => radio.addEventListener('click', () => postData(radio)));
-}
+};
 addClickListener();
