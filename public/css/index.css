@@ -24,22 +24,10 @@ hr {
     align-items: center;
     justify-content: center;
 }
-.main-div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    padding: 5px 10px 10px;
-    border-color: grey;
-    text-align: center;
-    margin-top: 50px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
-}
 #title-header {
     font-size: 64px;
     position: absolute;
-    top: 24px;
+    top: 12px;
     font-weight: 200;
 }
 #links {
@@ -64,7 +52,7 @@ hr {
 }
 h1 {
     font-family: "Helvetica Neue";
-    font-weight: lighter;
+    font-weight: 500;
     font-size: 60px;
     margin: 0;
 }
@@ -83,7 +71,7 @@ a {
     color: black;
     font-size: 36px;
     margin: 0;
-    margin-top: 72px;
+    margin-top: 74px;
     height: 60px;
     border-radius: 10px;
     width: 100%;
@@ -95,9 +83,9 @@ a:hover {
 a:active {
     background-color: rgba(0, 128, 128, 0.7);
 }
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1287.5px) {
     #fagotti-link {
-        margin-top: 1px;
+        margin-top: 0px;
     }
 }
 @media screen and (max-width: 750px) {
@@ -105,15 +93,14 @@ a:active {
         padding-top: 2%;
     }
     #title-header {
-        top: 12px;
-        font-size: 32px;
+        font-size: 48px;
     }
     .main-div {
         margin-top: 20px;
     }
     #links {
-        margin-top: 24px;
         flex-direction: column;
+        margin-top: 24px;
     }
     .pop {
         width: 90%;
@@ -129,11 +116,5 @@ a:active {
         font-size: 24px;
         margin-top: 32px  !important;
         min-height: 30px;
-    }
-}
-@media screen and (max-width: 300px) {
-    #title-header {
-        top: 12px;
-        font-size: 24px;
     }
 }

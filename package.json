@@ -1,15 +1,11 @@
 {
-  "name": "ovariancancerrecommendation",
+  "name": "ovscore",
   "version": "1.0.0",
-  "description": "Uses the AGO and the iModel scoring system to determine a recommendation for surgery or no surgery",
+  "description": "Uses the AGO, iModel, and the Fagotti scoring system to determine a recommendation for surgery or no surgery",
   "main": "./bin/ww",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://git.heroku.com/ovariancancerrecommendation.git"
   },
   "author": "Johnny",
   "license": "MIT",
