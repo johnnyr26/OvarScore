@@ -1,0 +1,61 @@
+"use strict";
+
+var validate = function validate(responses) {
+  var twoCategory = ['Unresectable massive peritoneal involvement plus miliary pattern of distribution', 'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 'Tumour diffusion up to the large curvature of the stomach', 'Bowel resection assumed to be required or military carcinomatosis at the mesentric junction', 'Obvious neoplasyic involvement of the gastric wall', 'Any surface lesions'];
+  var zeroCategory = ['Carcinomatosis involving a limited area surgically removable by peritonectomy', 'Isolated diaphragmatic disease', 'Small nodules potentially treatable with argon-beam coagulation', 'Isolated omental disease', 'No bowel restriction required and no military carcinomatosis at the mesenteric junction', 'No obvious neoplastic involvement of the gastric wall', 'No surface lesions'];
+  var correctValues = Object.values(responses).every(function (response) {
+    return !response || twoCategory.includes(response) || zeroCategory.includes(response);
+  });
+  return correctValues;
+};
+
+var processResponse = function processResponse(responses) {
+  var twoCategory = ['Unresectable massive peritoneal involvement plus miliary pattern of distribution', 'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 'Tumour diffusion up to the large curvature of the stomach', 'Bowel resection assumed to be required or military carcinomatosis at the mesentric junction', 'Obvious neoplasyic involvement of the gastric wall', 'Any surface lesions'];
+  var score = 0;
+  Object.values(responses).forEach(function (response) {
+    if (twoCategory.includes(response)) score += 2;
+  });
+  var recommendation = '';
+  var everyCategoryFilled = Object.values(responses).length === 7;
+  if (everyCategoryFilled) recommendation = score <= 10 ? 'Recommendation: Surgery' : 'Recommendation: No Surgery';
+  return {
+    score: score,
+    recommendation: recommendation
+  };
+};
+
+Object.values(document.getElementsByTagName('td')).forEach(function (cell) {
+  cell.addEventListener('click', function () {
+    var classCells = document.getElementsByClassName(cell.className);
+    Object.values(classCells).forEach(function (classCell) {
+      return classCell.removeAttribute('style');
+    });
+    var color = 'rgba(0, 128, 128, 0.3)';
+    cell.style.backgroundColor = color;
+    var input = {};
+    var rowCells = Object.values(document.getElementsByTagName('td')).filter(function (cell) {
+      return cell.className.includes('row');
+    });
+    rowCells.forEach(function (cell, index) {
+      if (cell.style.backgroundColor === color) {
+        input['row' + Math.floor(index / 2)] = cell.textContent;
+      }
+    });
+
+    if (!validate(input)) {
+      document.getElementById('recommendation').textContent = 'Error: There was an error processing the response.';
+      document.getElementById('score').textContent = '';
+    } else {
+      var response = processResponse(input);
+      document.getElementById('recommendation').textContent = response.recommendation;
+      document.getElementById('score').textContent = 'Score: ' + response.score;
+
+      if (response.recommendation) {
+        window.scroll({
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
+  });
+});
