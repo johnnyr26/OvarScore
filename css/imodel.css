@@ -10,10 +10,11 @@ body {
 .main {
     box-sizing: border-box;
     height: 100%;
-    padding: 10px;
+    padding: 18px;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     text-align: center;
 }
 .main-div {
@@ -25,7 +26,7 @@ body {
     padding: 5px 10px 10px;
     border-color: grey;
     text-align: center;
-    width: 40%;
+    min-width: 512px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
 }
@@ -45,7 +46,6 @@ label {
 }
 input[type=radio] {
     display: inline-block;
-    font-size: 30px;
     margin-left: 12px;
 }
 #recommendation, #score {
@@ -56,13 +56,20 @@ input[type=radio] {
     font-weight: 300;
 }
 #risks {
-    font-size: 18px;
+    font-size: 24px;
     margin: 10px;;
     font-weight: normal;
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 800px) {
+    #back-link {
+        position: static;
+        display: block;
+        width: 100%;
+        font-size: 36px;
+    }
     .main-div {
-        width: 50%;
+        min-width: 0;
+        width: 90%;
     }
     h1 {
         font-size: 18px;
@@ -77,23 +84,12 @@ input[type=radio] {
         font-size: 16px;
     }
     #risks {
-        font-size: 10px;
-    }
-    #score, #recommendation {
         font-size: 18px;
+    }
+}
+@media screen and (max-width: 400px) {
+    #score, #recommendation {
+        font-size: 24px;
         font-weight: 300px;
-    }
-}
-@media screen and (min-height: 1000px) {
-    .main-div {
-        width: 60%;
-    }
-}
-@media screen and (max-width: 500px) {
-    label {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
     }
 }
