@@ -1,7 +1,7 @@
 "use strict";
 
 var validate = function validate(responses) {
-  var twoCategory = ['Unresectable massive peritoneal involvement plus miliary pattern of distribution', 'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 'Tumour diffusion up to the large curvature of the stomach', 'Bowel resection assumed to be required or military carcinomatosis at the mesentric junction', 'Obvious neoplasyic involvement of the gastric wall', 'Any surface lesions'];
+  var twoCategory = ['Unresectable massive peritoneal involvement plus miliary pattern of distribution', 'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 'Tumour diffusion up to the large curvature of the stomach', 'Bowel resection assumed to be required or military carcinomatosis at the mesentric junction', 'Obvious neoplasyic involvement of the gastric wall', 'Any nodules >2 cm'];
   var zeroCategory = ['Carcinomatosis involving a limited area surgically removable by peritonectomy', 'Isolated diaphragmatic disease', 'Small nodules potentially treatable with argon-beam coagulation', 'Isolated omental disease', 'No bowel restriction required and no military carcinomatosis at the mesenteric junction', 'No obvious neoplastic involvement of the gastric wall', 'No surface lesions'];
   var correctValues = Object.values(responses).every(function (response) {
     return !response || twoCategory.includes(response) || zeroCategory.includes(response);
@@ -10,7 +10,7 @@ var validate = function validate(responses) {
 };
 
 var processResponse = function processResponse(responses) {
-  var twoCategory = ['Unresectable massive peritoneal involvement plus miliary pattern of distribution', 'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 'Tumour diffusion up to the large curvature of the stomach', 'Bowel resection assumed to be required or military carcinomatosis at the mesentric junction', 'Obvious neoplasyic involvement of the gastric wall', 'Any surface lesions'];
+  var twoCategory = ['Unresectable massive peritoneal involvement plus miliary pattern of distribution', 'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 'Tumour diffusion up to the large curvature of the stomach', 'Bowel resection assumed to be required or military carcinomatosis at the mesentric junction', 'Obvious neoplasyic involvement of the gastric wall', 'Any nodules >2 cm'];
   var score = 0;
   Object.values(responses).forEach(function (response) {
     if (twoCategory.includes(response)) score += 2;
@@ -41,7 +41,6 @@ Object.values(document.getElementsByTagName('td')).forEach(function (cell) {
         input['row' + Math.floor(index / 2)] = cell.textContent;
       }
     });
-
     if (!validate(input)) {
       document.getElementById('recommendation').textContent = 'Error: There was an error processing the response.';
       document.getElementById('score').textContent = '';
