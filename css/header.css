@@ -1,9 +1,13 @@
 #back-link {
     position: fixed;
-    top: 18px;
+    top: 12px;
     left: 18px;
     font-size: 45px;
     font-weight: 200;
+}
+#back-link-div {
+    width: 100%;
+    display: flex;
 }
 a {
     text-decoration: none;
@@ -11,11 +15,4 @@ a {
 }
 a:hover {
     text-decoration: underline;
-}
-@media screen and (max-width: 750px) {
-    #back-link {
-        top: 12px;
-        left: 12px;
-        font-size: 24px;
-    }
 }
