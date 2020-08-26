@@ -64,7 +64,7 @@ td {
     font-weight: 300;
     padding: 12px;
 }
-#recommendation, #score {
+.recommendation, #score {
     font-size: 36px;
     margin: 5px;
     margin-bottom: 0;
@@ -107,7 +107,7 @@ td {
     .top-headers {
         border: none;
     }
-    #score, #recommendation {
+    .recommendation, #score {
         font-size: 28px;
         font-weight: 300px;
     }

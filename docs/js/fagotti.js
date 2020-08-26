@@ -78,16 +78,16 @@ Object.values(document.querySelectorAll('input[type="radio"]')).forEach(function
       }
     })
     if (!validate(1, input)) {
-      document.getElementById('recommendation').textContent = 'Error: There was an error processing the response.';
+      document.getElementById('recommendationFirst').textContent = 'Error: There was an error processing the response.';
       document.getElementById('fagotti-main-div').style.display = 'none';
       return window.scroll({
         top: document.body.scrollHeight,
         behavior: 'smooth'
       });
     }
-    document.getElementById('recommendation').textContent = '';
+    document.getElementById('recommendationFirst').textContent = '';
     if (Object.values(input).some(response => response !== 'Yes')) {
-      document.getElementById('recommendation').textContent = 'Recommendation: No surgery';
+      document.getElementById('recommendationFirst').textContent = 'Recommendation: No surgery';
       document.getElementById('fagotti-main-div').style.display = 'none';
       return window.scroll({
         top: document.body.scrollHeight,
@@ -117,11 +117,11 @@ Object.values(document.getElementsByTagName('td')).forEach(function (cell) {
       }
     });
     if (!validate(2, input)) {
-      document.getElementById('recommendation').textContent = 'Error: There was an error processing the response.';
+      document.getElementById('recommendationSecond').textContent = 'Error: There was an error processing the response.';
       document.getElementById('score').textContent = '';
     } else {
       var response = processResponse(2, input);
-      document.getElementById('recommendation').textContent = response.recommendation;
+      document.getElementById('recommendationSecond').textContent = response.recommendation;
       // Null since 0 is considered a falsey value
       if (response.score !== null) {
         document.getElementById('score').textContent = 'Score: ' + response.score;
