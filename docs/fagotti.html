@@ -3,7 +3,9 @@
     <head>
         <title>Fagotti - OvScore</title>
         <link href="/css/header.css" type="text/css" rel="stylesheet">
+        <link href="/css/imodel.css" type="text/css" rel="stylesheet">
         <link href="/css/fagotti.css" type="text/css" rel="stylesheet">
+        
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,6 +23,51 @@
         <div class="main">
             <div id="back-link-div">
                 <a id="back-link" href="/">Back</a>
+            </div>
+            <div class="main-div" id="first-main-div">
+                <div id="categories">
+                    <h1 class="step1h1">Mesenteric root retraction</h1>
+                    <label>
+                        <input type="radio" class="1" name="retraction" value="Yes" required/>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" class="1" name="retraction" value="No" required/>
+                        No
+                    </label>
+                    <hr>
+                    <h1 class="step1h1">Miliary carcinomatosis on small bowel serosa</h1>
+                    <label>
+                        <input type="radio" class="1" name="serosa" value="Yes" required/>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" class="1" name="serosa" value="No" required/>
+                        No
+                    </label>
+                    <hr>
+                    <h1 class="step1h1">Miliary carcinomatosis at mesenteric junction</h1>
+                    <label>
+                        <input type="radio" class="1" name="junction" value="Yes" required/>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" class="1" name="junction" value="No" required/>
+                        No
+                    </label>
+                    <hr>
+                    <h1 class="step1h1">Limited movement of several segments of small bowel</h1>
+                    <label>
+                        <input type="radio" class="1" name="bowel" value="Yes" required/>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" class="1" name="bowel" value="No" required/>
+                        No
+                    </label>
+                    <hr>
+                    <h1 id="recommendation"></h1>
+                </div>
             </div>
             <div class="main-div" id="fagotti-main-div">
                 <div class="categories">

@@ -26,8 +26,15 @@ body {
     padding: 5px 10px 10px;
     border-color: grey;
     text-align: center;
+    width: 95%;
     border-radius: 10px;
+    margin-bottom: 24px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
+}
+.step1h1 {
+    font-family: "Helvetica Neue";
+    font-size: 36px;
+    font-weight: 300;
 }
 table {
     border-collapse: collapse;
@@ -68,7 +75,13 @@ td {
     position: static;
     margin-bottom: 12px;
 }
+#fagotti-main-div {
+    display: none;
+}
 @media screen and (max-width: 700px) {
+    .step1h1 {
+        font-size: 28px;
+    }
     #back-link {
         font-size: 36px;
     }
@@ -95,7 +108,7 @@ td {
         border: none;
     }
     #score, #recommendation {
-        font-size: 23px;
+        font-size: 28px;
         font-weight: 300px;
     }
 }
