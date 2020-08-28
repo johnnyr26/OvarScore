@@ -108,12 +108,12 @@ Object.values(document.getElementsByTagName('td')).forEach(function (cell) {
     var color = 'rgba(0, 128, 128, 0.3)';
     cell.style.backgroundColor = color;
     var input = {};
-    var rowCells = Object.values(document.getElementsByTagName('td')).filter(function (cell) {
-      return cell.className.includes('row');
+    var rowCells = Object.values(document.getElementsByTagName('td')).filter(function (tdCell) {
+      return tdCell.className.includes('row');
     });
-    rowCells.forEach(function (cell, index) {
-      if (cell.style.backgroundColor === color) {
-        input['row' + Math.floor(index / 2)] = cell.textContent;
+    rowCells.forEach(function (rowCell, index) {
+      if (rowCell.style.backgroundColor === color) {
+        input['row' + Math.floor(index / 2)] = rowCell.textContent;
       }
     });
     if (!validate(2, input)) {
