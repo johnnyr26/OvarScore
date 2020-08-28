@@ -78,6 +78,13 @@ td {
 #fagotti-main-div {
     display: none;
 }
+/*
+#first-header {
+    font-size: 60px;
+    font-weight: 400;
+    margin: 0;
+}
+*/
 @media screen and (max-width: 700px) {
     .step1h1 {
         font-size: 28px;

@@ -57,7 +57,7 @@ var processResponse = function processResponse(step, responses) {
     if (automaticNoSurgery) {
       return {
         score: null,
-        recommendation: 'Recommendation: No surgery'
+        recommendation: 'Recommendation: No Surgery'
       }
     }
     var everyCategoryFilled = Object.values(responses).length === 7;
@@ -87,7 +87,7 @@ Object.values(document.querySelectorAll('input[type="radio"]')).forEach(function
     }
     document.getElementById('recommendationFirst').textContent = '';
     if (Object.values(input).some(response => response !== 'Yes')) {
-      document.getElementById('recommendationFirst').textContent = 'Recommendation: No surgery';
+      document.getElementById('recommendationFirst').textContent = 'Recommendation: No Surgery';
       document.getElementById('fagotti-main-div').style.display = 'none';
       return window.scroll({
         top: document.body.scrollHeight,

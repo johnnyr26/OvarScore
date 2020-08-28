@@ -49,7 +49,7 @@ var processResponses = function processResponses(responses) {
   });
   var recommendation = '';
   var everyCategoryFilled = Object.values(responses).length === 6;
-  if (everyCategoryFilled) recommendation = score <= 4.7 ? "Recommendation: Surgery" : "Recommendation: No surgery";
+  if (everyCategoryFilled) recommendation = score <= 4.7 ? "Recommendation: Surgery" : "Recommendation: No Surgery";
   return {
     score: score.toFixed(1),
     recommendation: recommendation
