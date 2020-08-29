@@ -7,6 +7,9 @@ html, body {
 body {
     background-color: rgba(0, 128, 128, 0.3);
 }
+#recommendation-word, #recommendation-word2 {
+    display: none;
+}
 .main {
     box-sizing: border-box;
     height: 100%;
@@ -119,6 +122,10 @@ td {
         font-weight: 300px;
     }
 }
-
-
+@media screen and (max-width: 500px) {
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+}
 

@@ -71,7 +71,6 @@ Object.values(document.getElementsByTagName('input')).forEach(function (radio) {
       var response = processResponses(input);
       document.getElementById('recommendation').textContent = response.recommendation;
       document.getElementById('score').textContent = 'Score: ' + response.score;
-
       if (response.recommendation) {
         window.scroll({
           top: document.body.scrollHeight,

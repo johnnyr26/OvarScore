@@ -34,7 +34,7 @@ var validate = function validate(step, responses) {
 
 var processResponse = function processResponse(step, responses) {
   if (step === 1) {
-    return Object.values(responses).every(response => response === 'Yes');
+    return Object.values(responses).every(response => response === 'No');
   } else {
     var twoCategory = [
       'Unresectable massive peritoneal involvement plus miliary pattern of distribution', 
@@ -48,6 +48,7 @@ var processResponse = function processResponse(step, responses) {
     var score = 0;
     var recommendation = '';
     var automaticNoSurgery = false;
+    document.getElementById('recommendation-word2').style.display = 'none';
     Object.values(responses).forEach(function (response) {
       if (response === 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments') {
         automaticNoSurgery = true;
@@ -55,13 +56,17 @@ var processResponse = function processResponse(step, responses) {
       if (twoCategory.includes(response)) score += 2;
     });
     if (automaticNoSurgery) {
+      document.getElementById('recommendation-word2').style.display = 'block';
       return {
         score: null,
-        recommendation: 'Recommendation: No Surgery'
+        recommendation: 'No Surgery'
       }
     }
     var everyCategoryFilled = Object.values(responses).length === 7;
-    if (everyCategoryFilled) recommendation = score <= 10 ? 'Recommendation: Surgery' : 'Recommendation: No Surgery';
+    if (everyCategoryFilled) {
+      document.getElementById('recommendation-word2').style.display = 'block';
+      recommendation = score <= 10 ? 'Surgery' : 'No Surgery';
+    }
     return {
       score: score,
       recommendation: recommendation
@@ -70,6 +75,7 @@ var processResponse = function processResponse(step, responses) {
 };
 Object.values(document.querySelectorAll('input[type="radio"]')).forEach(function (element) {
   element.addEventListener('click', function  () {
+    document.getElementById('recommendation-word').style.display = 'none';
     var radios = document.querySelectorAll('input[type="radio"]');
     var input = {};
     radios.forEach(radio => {
@@ -86,8 +92,9 @@ Object.values(document.querySelectorAll('input[type="radio"]')).forEach(function
       });
     }
     document.getElementById('recommendationFirst').textContent = '';
-    if (Object.values(input).some(response => response !== 'Yes')) {
-      document.getElementById('recommendationFirst').textContent = 'Recommendation: No Surgery';
+    if (Object.values(input).some(response => response !== 'No')) {
+      document.getElementById('recommendation-word').style.display = 'block';
+      document.getElementById('recommendationFirst').textContent = 'No Surgery';
       document.getElementById('fagotti-main-div').style.display = 'none';
       return window.scroll({
         top: document.body.scrollHeight,
