@@ -8,22 +8,22 @@ var validate = function validate(step, responses) {
     return validatedKeys && validatedValues;
   } else {
     var twoCategory = [
-      'Unresectable massive peritoneal involvement plus miliary pattern of distribution', 
-      'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 
-      'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 
+      'Widespread infiltrating carcinomatosis or confluent nodules to most of the bilateral diaphragmatic surface', 
+      'Any superficial nodules >2 cm', 
+      'Obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen', 
       'Tumour diffusion up to the large curvature of the stomach', 
-      'Possible large/small bowel resection (excluding, recto-sigmoid involvement) assumed to be required or miliary carcinomatosis at mesenteric junction', 
-      'Obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen',
-      'Any nodules >2 cm'
+      'Large infiltrating nodules or involvement of the root of the mesentery based on limited movements of various intestinal segments', 
+      'Possible large/small bowel resection (excluding rectosigmoid resection) assumed to be required',
+      'Unresectable massive peritoneal involvement plus miliary pattern of distribution'
     ];
     var zeroCategory = [
-      'Carcinomatosis involving a limited area surgically removable by peritonectomy', 
       'Isolated diaphragmatic disease', 
-      'Small nodules potentially treatable with argon-beam coagulation', 
-      'Isolated omental disease', 
-      'No bowel resection required and no miliary carcinomatosis at the mesenteric junction', 
+      'No superficial nodules >2 cm', 
       'No obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen', 
-      'No nodules >2 cm'
+      'Isolated omental disease', 
+      'Small nodules potentially treatable with argon-beam coagulation', 
+      'No bowel resection required (except rectosigmoid resection)', 
+      'Carcinomatosis involving a limited area surgically removable by peritonectomy'
     ];
     var correctValues = Object.values(responses).every(function (response) {
       return !response || twoCategory.includes(response) || zeroCategory.includes(response);
@@ -37,35 +37,24 @@ var processResponse = function processResponse(step, responses) {
     return Object.values(responses).every(response => response === 'No');
   } else {
     var twoCategory = [
-      'Unresectable massive peritoneal involvement plus miliary pattern of distribution', 
-      'Widespread infiltrating carcinomatosis or confluent nodules to most of the diaphragmatic surface', 
-      'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments', 
+      'Widespread infiltrating carcinomatosis or confluent nodules to most of the bilateral diaphragmatic surface', 
+      'Any superficial nodules >2 cm', 
+      'Obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen', 
       'Tumour diffusion up to the large curvature of the stomach', 
-      'Possible large/small bowel resection (excluding, recto-sigmoid involvement) assumed to be required or miliary carcinomatosis at mesenteric junction', 
-      'Obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen',
-      'Any nodules >2 cm'
+      'Large infiltrating nodules or involvement of the root of the mesentery based on limited movements of various intestinal segments', 
+      'Possible large/small bowel resection (excluding rectosigmoid resection) assumed to be required',
+      'Unresectable massive peritoneal involvement plus miliary pattern of distribution'
     ];
     var score = 0;
     var recommendation = '';
-    var automaticNoSurgery = false;
     document.getElementById('recommendation-word2').style.display = 'none';
     Object.values(responses).forEach(function (response) {
-      if (response === 'Large infiltrating nodules or involvement of the root of the mesentery assumed based on limited movements of various intestinal segments') {
-        automaticNoSurgery = true;
-      }
       if (twoCategory.includes(response)) score += 2;
     });
-    if (automaticNoSurgery) {
-      document.getElementById('recommendation-word2').style.display = 'block';
-      return {
-        score: null,
-        recommendation: 'No Surgery'
-      }
-    }
     var everyCategoryFilled = Object.values(responses).length === 7;
     if (everyCategoryFilled) {
       document.getElementById('recommendation-word2').style.display = 'block';
-      recommendation = score <= 10 ? 'Surgery' : 'No Surgery';
+      recommendation = score <= 8 ? 'Surgery' : 'No Surgery';
     }
     return {
       score: score,

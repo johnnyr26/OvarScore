@@ -77,9 +77,14 @@ td {
 #back-link {
     position: static;
     margin-bottom: 12px;
+    margin-left: 2%;
 }
 #fagotti-main-div {
     display: none;
+}
+#index-score-0 {
+    display: flex;
+    flex-direction: column;
 }
 /*
 #first-header {
