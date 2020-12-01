@@ -12,18 +12,18 @@ var validate = function validate(step, responses) {
       'Any superficial nodules >2 cm', 
       'Obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen', 
       'Tumour diffusion up to the large curvature of the stomach', 
-      'Large infiltrating nodules or involvement of the root of the mesentery based on limited movements of various intestinal segments', 
+      'Large superficial (not infiltrating) nodules on the mesentery of various intestinal segments', 
       'Possible large/small bowel resection (excluding rectosigmoid resection) assumed to be required',
       'Unresectable massive peritoneal involvement plus miliary pattern of distribution'
     ];
     var zeroCategory = [
-      'Isolated diaphragmatic disease', 
-      'No superficial nodules >2 cm', 
-      'No obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen', 
-      'Isolated omental disease', 
-      'Small nodules potentially treatable with argon-beam coagulation', 
-      'No bowel resection required (except rectosigmoid resection)', 
-      'Carcinomatosis involving a limited area surgically removable by peritonectomy'
+      'Isolated diaphragmatic disease or NOT accessible', 
+      'No superficial nodules >2 cm or NOT accessible', 
+      'No obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen or NOT accessible', 
+      'Isolated omental disease or NOT accessible', 
+      'Small nodules potentially treatable with argon-beam coagulation or NOT accessible', 
+      'No bowel resection required (except rectosigmoid resection) or NOT accessible', 
+      'Carcinomatosis involving a limited area surgically removable by peritonectomy or NOT accessible'
     ];
     var correctValues = Object.values(responses).every(function (response) {
       return !response || twoCategory.includes(response) || zeroCategory.includes(response);
@@ -41,7 +41,7 @@ var processResponse = function processResponse(step, responses) {
       'Any superficial nodules >2 cm', 
       'Obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen', 
       'Tumour diffusion up to the large curvature of the stomach', 
-      'Large infiltrating nodules or involvement of the root of the mesentery based on limited movements of various intestinal segments', 
+      'Large superficial (not infiltrating) nodules on the mesentery of various intestinal segments', 
       'Possible large/small bowel resection (excluding rectosigmoid resection) assumed to be required',
       'Unresectable massive peritoneal involvement plus miliary pattern of distribution'
     ];
@@ -54,7 +54,7 @@ var processResponse = function processResponse(step, responses) {
     var everyCategoryFilled = Object.values(responses).length === 7;
     if (everyCategoryFilled) {
       document.getElementById('recommendation-word2').style.display = 'block';
-      recommendation = score <= 8 ? 'Surgery' : 'No Surgery';
+      recommendation = score <= 10 ? 'Surgery' : 'No Surgery';
     }
     return {
       score: score,
