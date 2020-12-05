@@ -54,7 +54,7 @@ var processResponse = function processResponse(step, responses) {
     var everyCategoryFilled = Object.values(responses).length === 7;
     if (everyCategoryFilled) {
       document.getElementById('recommendation-word2').style.display = 'block';
-      recommendation = score <= 10 ? 'Surgery' : 'No Surgery';
+      recommendation = score < 10 ? 'Surgery' : 'No Surgery';
     }
     return {
       score: score,
