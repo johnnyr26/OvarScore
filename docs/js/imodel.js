@@ -72,11 +72,15 @@ Object.values(document.getElementsByTagName('input')).forEach(function (radio) {
       document.getElementById('recommendation').textContent = response.recommendation;
       document.getElementById('score').textContent = 'Score: ' + response.score;
       if (response.recommendation) {
-        window.scroll({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
+        smoothScrollToDiv('score');
       }
     }
   });
 });
+
+function smoothScrollToDiv(id) {
+  var div = document.getElementById(id);
+  $('html, body').animate({ 
+    scrollTop: $(document).height()-$(div).height()}, 
+    800);
+}
