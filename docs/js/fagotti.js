@@ -77,23 +77,17 @@ Object.values(document.querySelectorAll('input[type="radio"]')).forEach(function
     if (!validate(1, input)) {
       document.getElementById('recommendationFirst').textContent = 'Error: There was an error processing the response.';
       document.getElementById('fagotti-main-div').style.display = 'none';
-      return window.scroll({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-      });
+      return smoothScrollToDiv('recommendationFirst');
     }
     document.getElementById('recommendationFirst').textContent = '';
     if (Object.values(input).some(response => response !== 'No')) {
       document.getElementById('recommendation-word').style.display = 'block';
       document.getElementById('recommendationFirst').textContent = 'No Surgery';
       document.getElementById('fagotti-main-div').style.display = 'none';
-      return window.scroll({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-      });
+      return smoothScrollToDiv('recommendationFirst');
     } else if (Object.entries(input).length === 4 && processResponse(1, Object.values(input))) {
       document.getElementById('fagotti-main-div').style.display = 'block';
-      document.getElementById("fagotti-main-div").scrollIntoView({behavior: 'smooth'});
+      smoothScrollToDiv('fagotti-main-div');
     }
   });
 });
@@ -127,11 +121,15 @@ Object.values(document.getElementsByTagName('td')).forEach(function (cell) {
         document.getElementById('score').textContent = '';
       }
       if (response.recommendation) {
-        window.scroll({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
+        smoothScrollToDiv('recommendationSecond');
       }
     }
   });
 });
+
+function smoothScrollToDiv(id) {
+  var div = document.getElementById(id);
+  $('html, body').animate({ 
+    scrollTop: $(document).height()-$(div).height()}, 
+    800);
+}
