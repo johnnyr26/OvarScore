@@ -100,12 +100,16 @@ var postData = function postData(radio) {
     if (response.response) document.getElementById('categories').innerHTML = response.response;
     document.getElementById('recommendation').textContent = response.recommendation || '';
     addClickListener();
-    window.scroll({
-      top: document.body.scrollHeight,
-      behavior: 'smooth'
-    });
+    smoothScrollToDiv('recommendation');
     addClickListener();
   }
 };
+
+function smoothScrollToDiv(id) {
+  var div = document.getElementById(id);
+  $('html, body').animate({ 
+    scrollTop: $(document).height()-$(div).height()}, 
+    800);
+}
 
 window.onload = addClickListener();
