@@ -18,13 +18,15 @@ var validate = function validate(step, responses) {
     ];
     var zeroCategory = [
       'Isolated diaphragmatic disease or NOT accessible', 
-      'No superficial nodules >2 cm or NOT accessible', 
+      'No superficial nodules %E2%89%A52 cm or NOT accessible',
       'No obvious neoplastic involvement of the stomach, and/or lesser omentum, and/or spleen or NOT accessible', 
       'Isolated omental disease or NOT accessible', 
       'Small nodules potentially treatable with argon-beam coagulation or NOT accessible', 
       'No bowel resection required (except rectosigmoid resection) or NOT accessible', 
       'Carcinomatosis involving a limited area surgically removable by peritonectomy or NOT accessible'
     ];
+    twoCategory = twoCategory.map(category => decodeURIComponent(category));
+    zeroCategory = zeroCategory.map(category => decodeURIComponent(category));
     var correctValues = Object.values(responses).every(function (response) {
       return !response || twoCategory.includes(response) || zeroCategory.includes(response);
     });
