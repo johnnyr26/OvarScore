@@ -99,8 +99,7 @@ var postData = function postData(radio) {
     var response = processResponse(category, value);
     if (response.response) document.getElementById('categories').innerHTML = response.response;
     document.getElementById('recommendation').textContent = response.recommendation || '';
-    addClickListener();
-    smoothScrollToDiv('recommendation');
+    smoothScrollToDiv('categories');
     addClickListener();
   }
 };
@@ -108,8 +107,8 @@ var postData = function postData(radio) {
 function smoothScrollToDiv(id) {
   var div = document.getElementById(id);
   $('html, body').animate({ 
-    scrollTop: $(document).height()-$(div).height()}, 
-    800);
+    scrollTop: $(div).offset().top + $(div).outerHeight(true)
+  }, 700);
 }
 
 window.onload = addClickListener();
