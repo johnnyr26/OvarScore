@@ -32,7 +32,6 @@ export const fagottiSlice = createSlice({
           }
         }
       });
-
       if (
         firstSection.includes(title) &&
         Object.values(state.responses).includes('Yes')

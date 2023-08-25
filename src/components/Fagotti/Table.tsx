@@ -1,10 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Container from '../Container';
 import ScoreContainer from '../ScoreContainer';
 import {FagottiType, table} from '../../constants/Fagotti';
 import styles from './styles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
 import {updateResponse} from '../../features/Fagotti/fagottiSlice';
 
